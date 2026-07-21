@@ -10,124 +10,106 @@
 
 | Layer | Choice | Why |
 |---|---|---|
-| Framework | Next.js 15 (App Router) | SSG for speed, SEO, easy Vercel deploy |
+| Framework | Next.js 15 (App Router) | ISR, SSR, Vercel deploy |
 | 3D | React Three Fiber + @react-three/drei | Three.js in React without the pain |
 | Styling | Tailwind CSS v4 | Utility-first, fast iteration |
-| Animation | Framer Motion | Page transitions + scroll reveals |
+| Animation | Framer Motion | Page transitions + scan-line effects |
 | Language | TypeScript | Obviously |
-| Deployment | Vercel + matthew-arvidson.com | Zero config |
+| Deployment | Vercel + matthew-arvidson.com | ✅ Live |
 
 ---
 
-## Site Structure
+## ✅ Phase 1 — DONE: Three.js Hero (desktop)
 
-```
-/ (home)            — Three.js hero → project category cards
-/projects           — filterable grid of all projects
-/projects/[slug]    — individual project deep-dive
-/about              — short bio, skills, contact
-```
-
----
-
-## TODAY — Phase 1: Three.js Hero
-
-**Goal:** Ship a homepage with a jaw-dropping Three.js intro. Everything else is secondary.
-
-### Hero Concept
-- Full-viewport dark canvas (deep space / near-black)
-- Floating 3D geometric shards (icosahedra, low-poly) drift slowly — each represents a tech domain
-- "MATTHEW ARVIDSON" renders as bold 3D text that rises from below the fold
-- Subtitle fades in: "Software Engineer · AI · Systems · Game Modding"
-- A glowing pulsing "EXPLORE →" button in 3D that invites the user in
+- Full-viewport dark canvas with star field and particle system
+- Floating 3D geometric shards (icosahedra, octahedra, tetrahedra) with depth layers
+- "MATTHEW ARVIDSON" 3D text rises from below with breathing animation
+- Subtitle: "SOFTWARE ENGINEER · AI · SYSTEMS"
+- EXPLORE button with corner-bracket sci-fi styling, scan-line hover effect
 - Mouse parallax — scene responds to cursor movement
-- Click "EXPLORE" → smooth camera fly-forward transition → scrollable project section below
-
-### Tasks
-- [ ] Scaffold Next.js 15 project (`npx create-next-app@latest`)
-- [ ] Install R3F stack: `@react-three/fiber`, `@react-three/drei`, `three`, `@types/three`
-- [ ] Install `framer-motion`, `tailwindcss`
-- [ ] Build `HeroScene` component (R3F Canvas, camera, lighting)
-- [ ] Add floating geometric particles / shards
-- [ ] Add 3D text (`Text3D` from drei + font)
-- [ ] Add pulsing "EXPLORE" button mesh with hover/click state
-- [ ] Mouse parallax on the scene
-- [ ] Scroll-triggered camera animation → transition to project section below
-- [ ] Wire up homepage layout
+- Click EXPLORE → fade transition → `/explore` route
+- Postprocessing: Bloom + Vignette via EffectComposer
+- Nav: GitHub · Nexus · LinkedIn · Projects
 
 ---
 
-## Phase 2: Projects Grid (next session)
+## ✅ Phase 2 — DONE: Projects Page (/explore)
 
-### Project Categories
-
-**AI & Fintech** _(most hirable signal)_
-- `structured-notes-intelligence-engine` — RAG pipeline for equity structured note term sheets (Python)
-- `Contract-Intelligence-Engine` — PDF → structured risk memo via AI (Python)
-- `AI-Resume-Evaluator` — Serverless ATS with Azure OpenAI (Python)
-- `signature-verification-poc` — Offline signature verification (Python)
-- `old-well-labs-product-take-home` — Full Stack Assessment 2026 (TypeScript)
-- `old-well-labs-data-take-home` — Senior Data Engineer Assessment 2026 (Python)
-
-**Financial Systems**
-- `3forge-trading-dashboard` — 4-panel live dashboard, OpenAI + Python REST + 3forge React
-- `cdm-validation-poc` — FINOS CDM validation (Java)
-- `3-forge-kafka-minimal` — Kafka integration setup (Java)
-
-**Game Modding / Systems** _(unique differentiator — shows low-level, open source, community impact)_
-- `UE4SS-Toolkit` — professional mod management interface
-- `RE-UE4SS` — fork of major UE4/5 scripting system (C++)
-- `HollowKnightMod` — comprehensive C# cheat menu mod
-- `SilkSongMod` — C# comprehensive mod, 10 GitHub stars
-- `AILimitMod` — full C# GUI mod
-- `MGS-Delta-UE4SS-Fix` — 10 stars, 1 fork — community fix for Metal Gear Solid Delta
-- `chrome-outreach-extension` — Chrome extension (JS)
-- `claude-code` — TypeScript AI CLI fork
-
-### Project Card Design
-- Category filter tabs at the top
-- Cards show: name, tech stack pills, star count if notable, 1-line description
-- Hover: card lifts with subtle 3D tilt effect
-- Click: modal or route to `/projects/[slug]`
+- Server Component fetches live data from both GitHub accounts (`mattdavida` + `matthew-arvidson`) via GitHub API
+- ISR revalidation every hour — star counts and `updated_at` stay fresh automatically
+- Fallback to static data if GitHub API is unavailable
+- Category filter pills with corner-bracket styling and counts
+- Project cards: scan-line hover, dot-grid texture, corner brackets, animated star glow
+- "NOTABLE" badge for projects ≥ 6 stars
+- "Updated X ago" timestamps on each card from live API
+- Typewriter header animation with live repo stats
+- Three categories: **AI & Fintech** · **Game Modding** · **Tools**
+- Footer: GitHub · GitHub (matthew-arvidson) · Nexus · LinkedIn
 
 ---
 
-## Phase 3: Project Deep-Dive Pages (future)
+## ✅ Phase 3 — DONE: Deployment
+
+- GitHub repo: `mattdavida/dev-profile`
+- Vercel: auto-deploy on push to `main`
+- Domain: `matthew-arvidson.com` + `www.matthew-arvidson.com` → Vercel
+- Cloudflare DNS: two CNAME records (grey cloud / DNS only)
+- Existing `snie-demo` Cloudflare Tunnel untouched — complementary
+- SSL: provisioned automatically by Vercel
+
+---
+
+## 🔜 Phase 4 — NEXT: Mobile Optimization
+
+**Current state:** Desktop only. Mobile has layout and performance issues.
+
+### Issues to fix
+
+| Area | Problem | Fix |
+|---|---|---|
+| Both navs | 4 links overflow on small screens | Hamburger menu or responsive collapse |
+| HeroScene | `mousemove` parallax does nothing on touch | Add `touchmove` or disable on mobile |
+| HeroScene | EXPLORE button position hardcoded | Responsive adjustments |
+| HeroScene | Full particle count + bloom on mobile | Detect mobile, reduce particles, skip postprocessing |
+| Explore grid | `minmax(300px, 1fr)` causes horizontal scroll on 320px screens | `minmax(min(300px, 100%), 1fr)` |
+| Three.js text | Needs verification at narrow viewports | Test + adjust sizing |
+
+**Estimated effort:** ~3-4 hours
+
+---
+
+## Phase 5 — Future: Project Deep-Dives
+
+- Individual `/explore/[slug]` pages per project
 - Live demo embeds where possible
-- Code snippets / architecture diagrams
-- GitHub stats (stars, language breakdown)
+- Architecture diagrams, code snippets
+- GitHub stats (language breakdown, commit history)
 
 ---
 
-## Phase 4: About + Contact (future)
+## Phase 6 — Future: About + Contact
+
 - Short punchy bio
-- Tech stack visualization (animated skill bars or radar chart)
-- Contact form or just mailto link
+- Tech stack visualization
 - Resume PDF download
+- Contact form or mailto
 
 ---
 
-## Differentiators to Lean Into
-1. **Breadth is real** — Python AI, TypeScript full-stack, C# desktop, C++ systems, Lua scripting, Java — few people touch all of these
-2. **Community presence** — stars, forks, cited projects (MGS Delta, SilkSong, etc.)
-3. **Financial domain knowledge** — 3forge, CDM, structured notes, take-homes from financial firms
-4. **AI-native** — RAG, Azure OpenAI, contract intelligence, resume evaluator — not just "used ChatGPT"
-5. **Systems thinker** — UE4SS toolkit, RE-UE4SS fork, Kafka, CDM validation — you read and modify real engines
+## Remaining Deployment TODOs
+
+- [ ] OG image for social sharing (LinkedIn/Slack unfurl)
+- [ ] GitHub personal access token in Vercel env vars (raises API rate limit 60 → 5000 req/hr)
+- [ ] `www` → apex redirect rule in Cloudflare or Vercel
+- [ ] Google Search Console — verify ownership for indexing
+- [ ] Lighthouse score audit
 
 ---
 
-## Design Direction
-- **Dark** — nearly black background (#0a0a0a)
-- **Accent** — electric blue/cyan (#00d4ff) or neon green (#00ff88) — pick one, stay consistent
-- **Typography** — JetBrains Mono for code elements, Inter or Geist for body
-- **Vibe** — "hacker who also ships real products" — not corporate, not chaotic
+## Differentiators
 
----
-
-## Deployment Checklist (when ready)
-- [ ] Vercel account connected to GitHub repo
-- [ ] Custom domain `matthew-arvidson.com` pointed to Vercel
-- [ ] `www.matthew-arvidson.com` redirect to apex
-- [ ] OG image for social sharing
-- [ ] Basic SEO meta tags
-- [ ] Lighthouse score > 90
+1. **Breadth** — Python AI, TypeScript full-stack, C# desktop, C++ systems, Lua scripting, Java
+2. **Community presence** — stars, forks, cited projects (MGS Delta, SilkSong, give_item_cmd_db)
+3. **Financial domain** — 3forge, CDM, structured notes, Kafka — real fintech infrastructure
+4. **AI-native** — RAG, Azure OpenAI, contract intelligence — not just "used ChatGPT"
+5. **Systems thinker** — UE4SS toolkit, RE-UE4SS fork, Kafka, CDM validation — reads and modifies real engines
