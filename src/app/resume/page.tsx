@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { NEXUS_PROFILE } from "@/data/projects";
+import { T } from "@/lib/tokens";
 
 // ─── Resume data ──────────────────────────────────────────────────────────────
 
@@ -141,15 +142,32 @@ const EDUCATION = [
   },
 ];
 
+// ─── Shared nav link style ────────────────────────────────────────────────────
+
+const navLinkStyle: React.CSSProperties = {
+  fontFamily: "var(--font-geist-mono), monospace",
+  fontSize: "0.7rem",
+  letterSpacing: "0.1em",
+  color: T.text.dim,
+  textDecoration: "none",
+  transition: "color 0.2s",
+};
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function SectionHeader({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-      <span style={{ color: "#00d4ff", fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.4em", textTransform: "uppercase" }}>
+      <span style={{
+        color: T.accent,
+        fontFamily: "var(--font-geist-mono), monospace",
+        fontSize: "0.65rem",
+        letterSpacing: "0.4em",
+        textTransform: "uppercase",
+      }}>
         {children}
       </span>
-      <div style={{ flex: 1, height: 1, background: "linear-gradient(to right, #1a2a3a, transparent)" }} />
+      <div style={{ flex: 1, height: 1, background: `linear-gradient(to right, ${T.border.mid}, transparent)` }} />
     </div>
   );
 }
@@ -157,8 +175,8 @@ function SectionHeader({ children }: { children: React.ReactNode }) {
 function Bullet({ text }: { text: string }) {
   return (
     <li style={{ display: "flex", gap: 10, marginBottom: 8, listStyle: "none" }}>
-      <span style={{ color: "#00d4ff", flexShrink: 0, marginTop: 2, fontSize: "0.65rem" }}>›</span>
-      <span style={{ fontSize: "0.78rem", lineHeight: 1.7, color: "#6a7a8a" }}>{text}</span>
+      <span style={{ color: T.accent, flexShrink: 0, marginTop: 2, fontSize: "0.65rem" }}>›</span>
+      <span style={{ fontSize: "0.78rem", lineHeight: 1.7, color: T.text.body }}>{text}</span>
     </li>
   );
 }
@@ -176,22 +194,22 @@ function fadeUp(delay = 0) {
 
 export default function ResumePage() {
   return (
-    <main style={{ minHeight: "100vh", background: "#070b10" }}>
+    <main style={{ minHeight: "100vh", background: T.bg.page }}>
       {/* Dot grid */}
-      <div style={{ position: "fixed", inset: 0, backgroundImage: "radial-gradient(rgba(0,212,255,0.028) 1px, transparent 1px)", backgroundSize: "28px 28px", pointerEvents: "none", zIndex: 0 }} />
+      <div style={{ position: "fixed", inset: 0, backgroundImage: `radial-gradient(rgba(0,212,255,0.028) 1px, transparent 1px)`, backgroundSize: "28px 28px", pointerEvents: "none", zIndex: 0 }} />
       <div style={{ position: "fixed", top: -200, left: "50%", transform: "translateX(-50%)", width: 700, height: 500, background: "radial-gradient(ellipse, rgba(0,212,255,0.04) 0%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
 
       {/* Nav */}
-      <nav style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 32px", background: "rgba(7,11,16,0.88)", backdropFilter: "blur(14px)", borderBottom: "1px solid #0f1a24" }}>
+      <nav style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 32px", background: "rgba(7,11,16,0.88)", backdropFilter: "blur(14px)", borderBottom: `1px solid ${T.border.subtle}` }}>
         <Link href="/"
-          style={{ display: "flex", alignItems: "center", gap: 8, fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", letterSpacing: "0.3em", color: "#4a5a6a", textDecoration: "none", transition: "color 0.2s" }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "#00d4ff")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "#4a5a6a")}
+          style={{ display: "flex", alignItems: "center", gap: 8, ...navLinkStyle, letterSpacing: "0.3em" }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)}
+          onMouseLeave={(e) => (e.currentTarget.style.color = T.text.dim)}
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 2L3 6l5 4" /></svg>
           BACK
         </Link>
-        <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.3em", color: "#1e2d3d", userSelect: "none" }}>
+        <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.3em", color: T.text.ghost, userSelect: "none" }}>
           MATTHEW-ARVIDSON.COM
         </span>
         <div style={{ display: "flex", gap: 20 }}>
@@ -201,9 +219,9 @@ export default function ResumePage() {
             { label: "LinkedIn ↗", href: CONTACT.linkedin.href },
           ].map(({ label, href }) => (
             <a key={label} href={href} target="_blank" rel="noreferrer"
-              style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", letterSpacing: "0.1em", color: "#4a5a6a", textDecoration: "none", transition: "color 0.2s" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#00d4ff")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#4a5a6a")}
+              style={navLinkStyle}
+              onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)}
+              onMouseLeave={(e) => (e.currentTarget.style.color = T.text.dim)}
             >{label}</a>
           ))}
         </div>
@@ -213,32 +231,30 @@ export default function ResumePage() {
 
         {/* ── Header ── */}
         <motion.div {...fadeUp(0)} style={{ marginBottom: 56 }}>
-          <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.45em", color: "#00d4ff", marginBottom: 16, textTransform: "uppercase" }}>
+          <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.45em", color: T.accent, marginBottom: 16, textTransform: "uppercase" }}>
             Résumé
           </p>
-          <h1 style={{ fontSize: "clamp(2.2rem, 5vw, 3.2rem)", fontWeight: 700, color: "#e8edf4", letterSpacing: "-0.02em", lineHeight: 1.05, marginBottom: 12 }}>
+          <h1 style={{ fontSize: "clamp(2.2rem, 5vw, 3.2rem)", fontWeight: 700, color: T.text.primary, letterSpacing: "-0.02em", lineHeight: 1.05, marginBottom: 12 }}>
             Matthew Arvidson
           </h1>
-          <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", color: "#3a5068", lineHeight: 1.9, marginBottom: 20 }}>
+          <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", color: T.text.secondary, lineHeight: 1.9, marginBottom: 20 }}>
             {CONTACT.phone}
-            <span style={{ color: "#1a2a3a", margin: "0 10px" }}>·</span>
-            <a href={`mailto:${CONTACT.email}`} style={{ color: "#3a5068", textDecoration: "none" }} onMouseEnter={(e) => (e.currentTarget.style.color = "#00d4ff")} onMouseLeave={(e) => (e.currentTarget.style.color = "#3a5068")}>{CONTACT.email}</a>
-            <span style={{ color: "#1a2a3a", margin: "0 10px" }}>·</span>
-            <a href={CONTACT.linkedin.href} target="_blank" rel="noreferrer" style={{ color: "#3a5068", textDecoration: "none" }} onMouseEnter={(e) => (e.currentTarget.style.color = "#00d4ff")} onMouseLeave={(e) => (e.currentTarget.style.color = "#3a5068")}>{CONTACT.linkedin.label}</a>
-            <span style={{ color: "#1a2a3a", margin: "0 10px" }}>·</span>
-            <a href={CONTACT.github.href} target="_blank" rel="noreferrer" style={{ color: "#3a5068", textDecoration: "none" }} onMouseEnter={(e) => (e.currentTarget.style.color = "#00d4ff")} onMouseLeave={(e) => (e.currentTarget.style.color = "#3a5068")}>{CONTACT.github.label}</a>
+            <span style={{ color: T.border.mid, margin: "0 10px" }}>·</span>
+            <a href={`mailto:${CONTACT.email}`} style={{ color: T.text.secondary, textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)} onMouseLeave={(e) => (e.currentTarget.style.color = T.text.secondary)}>{CONTACT.email}</a>
+            <span style={{ color: T.border.mid, margin: "0 10px" }}>·</span>
+            <a href={CONTACT.linkedin.href} target="_blank" rel="noreferrer" style={{ color: T.text.secondary, textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)} onMouseLeave={(e) => (e.currentTarget.style.color = T.text.secondary)}>{CONTACT.linkedin.label}</a>
+            <span style={{ color: T.border.mid, margin: "0 10px" }}>·</span>
+            <a href={CONTACT.github.href} target="_blank" rel="noreferrer" style={{ color: T.text.secondary, textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)} onMouseLeave={(e) => (e.currentTarget.style.color = T.text.secondary)}>{CONTACT.github.label}</a>
           </p>
-          <p style={{ fontSize: "0.75rem", fontFamily: "var(--font-geist-mono), monospace", color: "#2a3a4a", letterSpacing: "0.04em", lineHeight: 1.6 }}>
+          <p style={{ fontSize: "0.75rem", fontFamily: "var(--font-geist-mono), monospace", color: T.text.dim, letterSpacing: "0.04em", lineHeight: 1.6 }}>
             Senior Full-Stack Engineer · Financial Systems Modernization · React / TypeScript / Node.js / Python / C# / Java
           </p>
-
-          {/* Print button */}
           <div style={{ marginTop: 28 }}>
             <button
               onClick={() => window.print()}
-              style={{ position: "relative", background: "transparent", border: "1px solid #1a2a3a", outline: "none", cursor: "pointer", padding: "10px 28px", fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.68rem", letterSpacing: "0.3em", color: "#3a5068", transition: "border-color 0.2s, color 0.2s" }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#00d4ff"; e.currentTarget.style.color = "#00d4ff"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#1a2a3a"; e.currentTarget.style.color = "#3a5068"; }}
+              style={{ background: "transparent", border: `1px solid ${T.border.mid}`, outline: "none", cursor: "pointer", padding: "10px 28px", fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.68rem", letterSpacing: "0.3em", color: T.text.dim, transition: "border-color 0.2s, color 0.2s" }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = T.accent; e.currentTarget.style.color = T.accent; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = T.border.mid; e.currentTarget.style.color = T.text.dim; }}
             >
               DOWNLOAD PDF ↓
             </button>
@@ -248,7 +264,7 @@ export default function ResumePage() {
         {/* ── Summary ── */}
         <motion.section {...fadeUp(0.05)} style={{ marginBottom: 52 }}>
           <SectionHeader>Summary</SectionHeader>
-          <p style={{ fontSize: "0.82rem", lineHeight: 1.85, color: "#5a6a7a" }}>{SUMMARY}</p>
+          <p style={{ fontSize: "0.82rem", lineHeight: 1.85, color: T.text.body }}>{SUMMARY}</p>
         </motion.section>
 
         {/* ── Skills ── */}
@@ -257,12 +273,12 @@ export default function ResumePage() {
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {SKILLS.map((group) => (
               <div key={group.label} style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
-                <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.08em", color: "#2a3a4a", minWidth: 170, paddingTop: 3, flexShrink: 0 }}>
+                <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.08em", color: T.text.dim, minWidth: 170, paddingTop: 3, flexShrink: 0 }}>
                   {group.label}
                 </span>
                 <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                   {group.items.map((item) => (
-                    <span key={item} style={{ fontFamily: "monospace", fontSize: "0.7rem", padding: "3px 10px", background: "#0d1a26", color: "#4a6a88", border: "1px solid #1a2a3a", borderRadius: 2 }}>
+                    <span key={item} style={{ fontFamily: "monospace", fontSize: "0.7rem", padding: "3px 10px", background: T.bg.surface, color: T.text.secondary, border: `1px solid ${T.border.mid}`, borderRadius: 2 }}>
                       {item}
                     </span>
                   ))}
@@ -278,26 +294,23 @@ export default function ResumePage() {
           <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
             {EXPERIENCE.map((job, ji) => (
               <motion.div key={job.company} {...fadeUp(0.05 * ji)}
-                style={{ borderLeft: "1px solid #0f1a24", paddingLeft: 24, position: "relative" }}
+                style={{ borderLeft: `1px solid ${T.border.subtle}`, paddingLeft: 24, position: "relative" }}
               >
-                {/* Timeline dot */}
-                <div style={{ position: "absolute", left: -4, top: 6, width: 7, height: 7, borderRadius: "50%", background: "#00d4ff", boxShadow: "0 0 8px rgba(0,212,255,0.5)" }} />
-
+                <div style={{ position: "absolute", left: -4, top: 6, width: 7, height: 7, borderRadius: "50%", background: T.accent, boxShadow: `0 0 8px rgba(0,212,255,0.5)` }} />
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
                   <div>
-                    <h2 style={{ fontSize: "1rem", fontWeight: 700, color: "#e8edf4", marginBottom: 2 }}>{job.company}</h2>
-                    <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", color: "#00d4ff", letterSpacing: "0.04em" }}>{job.title}</p>
+                    <h2 style={{ fontSize: "1rem", fontWeight: 700, color: T.text.primary, marginBottom: 2 }}>{job.company}</h2>
+                    <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", color: T.accent, letterSpacing: "0.04em" }}>{job.title}</p>
                   </div>
                   <div style={{ textAlign: "right" }}>
-                    <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", color: "#2a3a4a", letterSpacing: "0.04em" }}>{job.period}</p>
-                    <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", color: "#1e2d3d" }}>{job.location}</p>
+                    <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", color: T.text.dim, letterSpacing: "0.04em" }}>{job.period}</p>
+                    <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", color: T.text.secondary }}>{job.location}</p>
                   </div>
                 </div>
-
                 <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 20 }}>
                   {job.groups.map((group) => (
                     <div key={group.label}>
-                      <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.06em", color: "#2a3a4a", marginBottom: 10, paddingLeft: 0 }}>
+                      <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.06em", color: T.text.dim, marginBottom: 10 }}>
                         — {group.label}
                       </p>
                       <ul style={{ padding: 0, margin: 0 }}>
@@ -317,12 +330,12 @@ export default function ResumePage() {
           <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
             {PROJECTS.map((proj, pi) => (
               <motion.div key={proj.title} {...fadeUp(0.04 * pi)}
-                style={{ borderLeft: "1px solid #0f1a24", paddingLeft: 24, position: "relative" }}
+                style={{ borderLeft: `1px solid ${T.border.subtle}`, paddingLeft: 24, position: "relative" }}
               >
-                <div style={{ position: "absolute", left: -4, top: 6, width: 7, height: 7, borderRadius: "50%", background: "#1a3a4a", border: "1px solid #00d4ff" }} />
+                <div style={{ position: "absolute", left: -4, top: 6, width: 7, height: 7, borderRadius: "50%", background: T.bg.surface, border: `1px solid ${T.accent}` }} />
                 <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 12 }}>
-                  <h3 style={{ fontSize: "0.88rem", fontWeight: 600, color: "#e8edf4" }}>{proj.title}</h3>
-                  <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", color: "#2a3a4a" }}>{proj.period}</span>
+                  <h3 style={{ fontSize: "0.88rem", fontWeight: 600, color: T.text.primary }}>{proj.title}</h3>
+                  <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", color: T.text.dim }}>{proj.period}</span>
                 </div>
                 <ul style={{ padding: 0, margin: 0 }}>
                   {proj.bullets.map((b, i) => <Bullet key={i} text={b} />)}
@@ -338,11 +351,11 @@ export default function ResumePage() {
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {EDUCATION.map((edu) => (
               <div key={edu.school} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-                <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#1a3a4a", border: "1px solid #00d4ff", flexShrink: 0, marginTop: 5 }} />
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: T.bg.surface, border: `1px solid ${T.accent}`, flexShrink: 0, marginTop: 5 }} />
                 <div>
-                  <p style={{ fontSize: "0.82rem", fontWeight: 600, color: "#c8d4e0", marginBottom: 2 }}>{edu.school}</p>
-                  <p style={{ fontSize: "0.75rem", color: "#4a5a6a", marginBottom: 2 }}>{edu.degree}</p>
-                  <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", color: "#2a3a4a" }}>{edu.detail}</p>
+                  <p style={{ fontSize: "0.82rem", fontWeight: 600, color: T.text.primary, marginBottom: 2 }}>{edu.school}</p>
+                  <p style={{ fontSize: "0.75rem", color: T.text.body, marginBottom: 2 }}>{edu.degree}</p>
+                  <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", color: T.text.dim }}>{edu.detail}</p>
                 </div>
               </div>
             ))}
@@ -351,7 +364,6 @@ export default function ResumePage() {
 
       </div>
 
-      {/* Print styles */}
       <style>{`
         @media print {
           nav, button { display: none !important; }

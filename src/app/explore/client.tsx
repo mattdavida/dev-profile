@@ -11,6 +11,7 @@ import {
   type Project,
 } from "@/data/projects";
 import { formatUpdated } from "@/lib/github";
+import { T } from "@/lib/tokens";
 
 // ─── Scan-line hook + component ───────────────────────────────────────────────
 
@@ -34,14 +35,9 @@ function ScanLine({ scanId }: { scanId: number }) {
     <motion.div
       key={scanId}
       style={{
-        position: "absolute",
-        left: 0,
-        right: 0,
-        height: 1,
-        pointerEvents: "none",
-        zIndex: 10,
-        background:
-          "linear-gradient(to right, transparent 0%, #00d4ff 20%, #ffffff 50%, #00d4ff 80%, transparent 100%)",
+        position: "absolute", left: 0, right: 0, height: 1,
+        pointerEvents: "none", zIndex: 10,
+        background: `linear-gradient(to right, transparent 0%, ${T.accent} 20%, #ffffff 50%, ${T.accent} 80%, transparent 100%)`,
       }}
       initial={{ top: 0, opacity: 0 }}
       animate={{ top: "100%", opacity: [0, 1, 1, 0] }}
@@ -53,36 +49,20 @@ function ScanLine({ scanId }: { scanId: number }) {
 // ─── Typewriter ───────────────────────────────────────────────────────────────
 
 function Typewriter({
-  text,
-  delay = 0,
-  speed = 38,
-  style,
-  hideCursorWhenDone = false,
-  onDone,
+  text, delay = 0, speed = 38, style, hideCursorWhenDone = false, onDone,
 }: {
-  text: string;
-  delay?: number;
-  speed?: number;
-  style?: CSSProperties;
-  hideCursorWhenDone?: boolean;
-  onDone?: () => void;
+  text: string; delay?: number; speed?: number; style?: CSSProperties;
+  hideCursorWhenDone?: boolean; onDone?: () => void;
 }) {
   const [displayed, setDisplayed] = useState("");
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    setDisplayed("");
-    setDone(false);
-    let i = 0;
+    setDisplayed(""); setDone(false); let i = 0;
     const startTimer = setTimeout(() => {
       const iv = setInterval(() => {
-        i++;
-        setDisplayed(text.slice(0, i));
-        if (i >= text.length) {
-          clearInterval(iv);
-          setDone(true);
-          onDone?.();
-        }
+        i++; setDisplayed(text.slice(0, i));
+        if (i >= text.length) { clearInterval(iv); setDone(true); onDone?.(); }
       }, speed);
       return () => clearInterval(iv);
     }, delay);
@@ -94,81 +74,46 @@ function Typewriter({
     <span style={style}>
       {displayed}
       {(!done || !hideCursorWhenDone) && (
-        <motion.span
-          animate={{ opacity: [1, 0, 1] }}
-          transition={{ repeat: Infinity, duration: 0.9 }}
-          style={{ color: "#00d4ff", marginLeft: 2 }}
-        >
-          █
-        </motion.span>
+        <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ repeat: Infinity, duration: 0.9 }} style={{ color: T.accent, marginLeft: 2 }}>█</motion.span>
       )}
     </span>
   );
 }
 
+// ─── Nav link style ───────────────────────────────────────────────────────────
+
+const navLinkStyle: CSSProperties = {
+  fontFamily: "var(--font-geist-mono), monospace",
+  fontSize: "0.7rem",
+  letterSpacing: "0.1em",
+  color: T.text.dim,
+  textDecoration: "none",
+  transition: "color 0.2s",
+};
+
 // ─── Corner-bracket category pill ─────────────────────────────────────────────
 
-function CategoryPill({
-  label,
-  count,
-  active,
-  onClick,
-}: {
-  label: string;
-  count: number;
-  active: boolean;
-  onClick: () => void;
-}) {
+function CategoryPill({ label, count, active, onClick }: { label: string; count: number; active: boolean; onClick: () => void }) {
   const [hovered, setHovered] = useState(false);
   const lit = active || hovered;
-  const bracketColor = lit ? "#00d4ff" : "#2a3444";
+  const bracketColor = lit ? T.accent : T.border.mid;
 
   return (
-    <button
-      onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        position: "relative",
-        background: active ? "rgba(0,212,255,0.10)" : "transparent",
-        border: "none",
-        outline: "none",
-        cursor: "pointer",
-        padding: "8px 18px",
-        userSelect: "none",
-        transition: "background 0.2s",
-      }}
+    <button onClick={onClick} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+      style={{ position: "relative", background: active ? "rgba(0,212,255,0.10)" : "transparent", border: "none", outline: "none", cursor: "pointer", padding: "8px 18px", userSelect: "none", transition: "background 0.2s" }}
     >
       {(["tl", "tr", "bl", "br"] as const).map((c) => (
-        <span
-          key={c}
-          style={{
-            position: "absolute",
-            width: 7,
-            height: 7,
-            top: c.startsWith("t") ? 0 : undefined,
-            bottom: c.startsWith("b") ? 0 : undefined,
-            left: c.endsWith("l") ? 0 : undefined,
-            right: c.endsWith("r") ? 0 : undefined,
-            borderColor: bracketColor,
-            borderTopWidth: c.startsWith("t") ? 1 : 0,
-            borderBottomWidth: c.startsWith("b") ? 1 : 0,
-            borderLeftWidth: c.endsWith("l") ? 1 : 0,
-            borderRightWidth: c.endsWith("r") ? 1 : 0,
-            borderStyle: "solid",
-            transition: "border-color 0.2s",
-          }}
-        />
+        <span key={c} style={{
+          position: "absolute", width: 7, height: 7,
+          top: c.startsWith("t") ? 0 : undefined, bottom: c.startsWith("b") ? 0 : undefined,
+          left: c.endsWith("l") ? 0 : undefined, right: c.endsWith("r") ? 0 : undefined,
+          borderColor: bracketColor,
+          borderTopWidth: c.startsWith("t") ? 1 : 0, borderBottomWidth: c.startsWith("b") ? 1 : 0,
+          borderLeftWidth: c.endsWith("l") ? 1 : 0, borderRightWidth: c.endsWith("r") ? 1 : 0,
+          borderStyle: "solid", transition: "border-color 0.2s",
+        }} />
       ))}
-      <span
-        style={{
-          fontFamily: "var(--font-geist-mono), monospace",
-          fontSize: "0.7rem",
-          letterSpacing: "0.1em",
-          color: active ? "#00d4ff" : hovered ? "#8892a0" : "#4a5568",
-          transition: "color 0.2s",
-        }}
-      >
+      <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", letterSpacing: "0.1em", color: active ? T.accent : hovered ? T.text.body : T.text.dim, transition: "color 0.2s" }}>
         {label} <span style={{ opacity: 0.5 }}>{count}</span>
       </span>
     </button>
@@ -181,68 +126,34 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false);
   const { scanning, scanId, trigger } = useScanLine();
   const isNotable = (project.stars ?? 0) >= 6;
-  const langColor = LANG_COLORS[project.lang] ?? "#8892a0";
+  const langColor = LANG_COLORS[project.lang] ?? T.text.body;
   const updated = formatUpdated(project.updatedAt);
 
   return (
-    <motion.a
-      href={project.url}
-      target="_blank"
-      rel="noreferrer"
-      layout
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.97 }}
+    <motion.a href={project.url} target="_blank" rel="noreferrer" layout
+      initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.97 }}
       transition={{ duration: 0.32, delay: index * 0.03 }}
-      style={{
-        display: "block",
-        position: "relative",
-        textDecoration: "none",
-        borderRadius: 2,
-        overflow: "hidden",
-        background: "#090e17",
-        border: `1px solid ${hovered ? "rgba(0,212,255,0.3)" : "#16202e"}`,
-        transition: "border-color 0.2s",
-      }}
+      style={{ display: "block", position: "relative", textDecoration: "none", borderRadius: 2, overflow: "hidden", background: T.bg.card, border: `1px solid ${hovered ? T.border.hover : T.border.card}`, transition: "border-color 0.2s" }}
       onHoverStart={() => { setHovered(true); trigger(); }}
       onHoverEnd={() => setHovered(false)}
     >
       {/* Dot grid on hover */}
       <motion.div
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: "radial-gradient(rgba(0,212,255,0.07) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
-          pointerEvents: "none",
-        }}
-        animate={{ opacity: hovered ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
+        style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(rgba(0,212,255,0.07) 1px, transparent 1px)`, backgroundSize: "20px 20px", pointerEvents: "none" }}
+        animate={{ opacity: hovered ? 1 : 0 }} transition={{ duration: 0.3 }}
       />
 
       {/* Corner brackets on hover */}
       {(["tl", "tr", "bl", "br"] as const).map((c) => (
-        <motion.span
-          key={c}
-          style={{
-            position: "absolute",
-            width: 10,
-            height: 10,
-            top: c.startsWith("t") ? 4 : undefined,
-            bottom: c.startsWith("b") ? 4 : undefined,
-            left: c.endsWith("l") ? 4 : undefined,
-            right: c.endsWith("r") ? 4 : undefined,
-            borderColor: "#00d4ff",
-            borderTopWidth: c.startsWith("t") ? 1 : 0,
-            borderBottomWidth: c.startsWith("b") ? 1 : 0,
-            borderLeftWidth: c.endsWith("l") ? 1 : 0,
-            borderRightWidth: c.endsWith("r") ? 1 : 0,
-            borderStyle: "solid",
-            pointerEvents: "none",
-          }}
-          animate={{ opacity: hovered ? 0.7 : 0 }}
-          transition={{ duration: 0.15 }}
-        />
+        <motion.span key={c} style={{
+          position: "absolute", width: 10, height: 10,
+          top: c.startsWith("t") ? 4 : undefined, bottom: c.startsWith("b") ? 4 : undefined,
+          left: c.endsWith("l") ? 4 : undefined, right: c.endsWith("r") ? 4 : undefined,
+          borderColor: T.accent,
+          borderTopWidth: c.startsWith("t") ? 1 : 0, borderBottomWidth: c.startsWith("b") ? 1 : 0,
+          borderLeftWidth: c.endsWith("l") ? 1 : 0, borderRightWidth: c.endsWith("r") ? 1 : 0,
+          borderStyle: "solid", pointerEvents: "none",
+        }} animate={{ opacity: hovered ? 0.7 : 0 }} transition={{ duration: 0.15 }} />
       ))}
 
       {scanning && <ScanLine scanId={scanId} />}
@@ -251,16 +162,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         {/* Header */}
         <div style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 10 }}>
           <motion.span
-            style={{
-              flex: 1,
-              fontFamily: "var(--font-geist-mono), monospace",
-              fontSize: "0.78rem",
-              fontWeight: 600,
-              lineHeight: 1.35,
-              wordBreak: "break-all",
-              display: "block",
-            }}
-            animate={{ color: hovered ? "#00d4ff" : "#e8edf4" }}
+            style={{ flex: 1, fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.78rem", fontWeight: 600, lineHeight: 1.35, wordBreak: "break-all", display: "block" }}
+            animate={{ color: hovered ? T.accent : T.text.primary }}
             transition={{ duration: 0.15 }}
           >
             {project.name}
@@ -268,17 +171,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
           <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0, marginTop: 1 }}>
             {isNotable && (
-              <span style={{ fontFamily: "monospace", fontSize: "9px", letterSpacing: "0.08em", padding: "2px 5px", border: "1px solid rgba(0,212,255,0.4)", color: "#00d4ff", borderRadius: 2 }}>
+              <span style={{ fontFamily: "monospace", fontSize: "9px", letterSpacing: "0.08em", padding: "2px 5px", border: `1px solid rgba(0,212,255,0.4)`, color: T.accent, borderRadius: 2 }}>
                 NOTABLE
               </span>
             )}
             {(project.stars ?? 0) > 0 && (
               <motion.span
                 style={{ fontFamily: "monospace", fontSize: "0.72rem", fontWeight: 700 }}
-                animate={{
-                  color: hovered ? "#ffe066" : "#c8a020",
-                  textShadow: hovered ? "0 0 12px rgba(255,210,0,0.6)" : "none",
-                }}
+                animate={{ color: hovered ? T.star.glow : T.star.base, textShadow: hovered ? "0 0 12px rgba(255,210,0,0.6)" : "none" }}
                 transition={{ duration: 0.2 }}
               >
                 ★ {project.stars}
@@ -288,7 +188,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
 
         {/* Description */}
-        <p style={{ fontSize: "0.73rem", lineHeight: 1.6, color: "#5a6a7a", margin: "0 0 14px" }}>
+        <p style={{ fontSize: "0.73rem", lineHeight: 1.6, color: T.text.body, margin: "0 0 14px" }}>
           {project.desc}
         </p>
 
@@ -296,15 +196,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, flexWrap: "wrap" }}>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
             {project.tags.map((t) => (
-              <span
-                key={t}
-                style={{ fontFamily: "monospace", fontSize: "9px", letterSpacing: "0.08em", padding: "2px 7px", background: "#0d1a26", color: "#3a5068", borderRadius: 2 }}
-              >
+              <span key={t} style={{ fontFamily: "monospace", fontSize: "9px", letterSpacing: "0.08em", padding: "2px 7px", background: T.bg.surface, color: T.text.dim, borderRadius: 2 }}>
                 {t}
               </span>
             ))}
             {updated && (
-              <span style={{ fontFamily: "monospace", fontSize: "9px", color: "#2a3a4a", letterSpacing: "0.04em" }}>
+              <span style={{ fontFamily: "monospace", fontSize: "9px", color: T.text.ghost, letterSpacing: "0.04em" }}>
                 {updated}
               </span>
             )}
@@ -335,40 +232,29 @@ export default function ExploreClient({ projects }: { projects: Project[] }) {
 
   const counts = useMemo(() => {
     const map: Record<string, number> = { All: projects.length };
-    for (const cat of ALL_CATEGORIES) {
-      map[cat] = projects.filter((p) => p.tags.includes(cat)).length;
-    }
+    for (const cat of ALL_CATEGORIES) map[cat] = projects.filter((p) => p.tags.includes(cat)).length;
     return map;
   }, [projects]);
 
-  const totalStars = useMemo(
-    () => projects.reduce((acc, p) => acc + (p.stars ?? 0), 0),
-    [projects]
-  );
+  const totalStars = useMemo(() => projects.reduce((acc, p) => acc + (p.stars ?? 0), 0), [projects]);
 
   return (
-    <motion.main
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
-      style={{ minHeight: "100vh", background: "#070b10" }}
-    >
+    <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} style={{ minHeight: "100vh", background: T.bg.page }}>
       {/* Dot grid background */}
       <div style={{ position: "fixed", inset: 0, backgroundImage: "radial-gradient(rgba(0,212,255,0.028) 1px, transparent 1px)", backgroundSize: "28px 28px", pointerEvents: "none", zIndex: 0 }} />
       <div style={{ position: "fixed", top: -200, left: "50%", transform: "translateX(-50%)", width: 600, height: 400, background: "radial-gradient(ellipse, rgba(0,212,255,0.05) 0%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
 
       {/* Nav */}
-      <nav style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 32px", background: "rgba(7,11,16,0.88)", backdropFilter: "blur(14px)", borderBottom: "1px solid #0f1a24" }}>
-        <Link
-          href="/"
-          style={{ display: "flex", alignItems: "center", gap: 8, fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", letterSpacing: "0.3em", color: "#4a5a6a", textDecoration: "none", transition: "color 0.2s" }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "#00d4ff")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "#4a5a6a")}
+      <nav style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 32px", background: "rgba(7,11,16,0.88)", backdropFilter: "blur(14px)", borderBottom: `1px solid ${T.border.subtle}` }}>
+        <Link href="/"
+          style={{ display: "flex", alignItems: "center", gap: 8, ...navLinkStyle, letterSpacing: "0.3em" }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)}
+          onMouseLeave={(e) => (e.currentTarget.style.color = T.text.dim)}
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 2L3 6l5 4" /></svg>
           BACK
         </Link>
-        <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.3em", color: "#1e2d3d", userSelect: "none" }}>
+        <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.3em", color: T.text.ghost, userSelect: "none" }}>
           MATTHEW-ARVIDSON.COM
         </span>
         <div style={{ display: "flex", gap: 20 }}>
@@ -379,9 +265,9 @@ export default function ExploreClient({ projects }: { projects: Project[] }) {
             { label: "Resume", href: "/resume", external: false },
           ].map(({ label, href, external }) => (
             <a key={label} href={href} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
-              style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", letterSpacing: "0.1em", color: "#4a5a6a", textDecoration: "none", transition: "color 0.2s" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#00d4ff")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#4a5a6a")}
+              style={navLinkStyle}
+              onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)}
+              onMouseLeave={(e) => (e.currentTarget.style.color = T.text.dim)}
             >{label}</a>
           ))}
         </div>
@@ -391,24 +277,22 @@ export default function ExploreClient({ projects }: { projects: Project[] }) {
 
         {/* Header */}
         <motion.div style={{ marginBottom: 52 }} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.45em", color: "#00d4ff", marginBottom: 16, textTransform: "uppercase" }}>
+          <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.45em", color: T.accent, marginBottom: 16, textTransform: "uppercase" }}>
             Selected Work
           </p>
-          <h1 style={{ fontSize: "clamp(2.4rem, 5vw, 3.5rem)", fontWeight: 700, color: "#e8edf4", lineHeight: 1.1, marginBottom: 20, letterSpacing: "-0.02em" }}>
+          <h1 style={{ fontSize: "clamp(2.4rem, 5vw, 3.5rem)", fontWeight: 700, color: T.text.primary, lineHeight: 1.1, marginBottom: 20, letterSpacing: "-0.02em" }}>
             <Typewriter text="Projects" delay={200} speed={55} hideCursorWhenDone={false} onDone={() => setTitleDone(true)} />
           </h1>
           <AnimatePresence>
             {titleDone && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}
-                style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.72rem", color: "#2a3a4a", display: "flex", alignItems: "center", gap: 6 }}
+                style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.72rem", color: T.text.ghost, display: "flex", alignItems: "center", gap: 6 }}
               >
-                <span style={{ color: "#00d4ff" }}>›</span>
+                <span style={{ color: T.accent }}>›</span>
                 <Typewriter
                   text={`${projects.length} repos  ·  7 languages  ·  ${totalStars}+ stars  ·  live from GitHub`}
-                  delay={100}
-                  speed={16}
-                  hideCursorWhenDone
-                  style={{ color: "#2a3a4a" }}
+                  delay={100} speed={16} hideCursorWhenDone
+                  style={{ color: T.text.ghost }}
                 />
               </motion.div>
             )}
@@ -425,15 +309,13 @@ export default function ExploreClient({ projects }: { projects: Project[] }) {
         {/* Grid */}
         <motion.div layout style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 12 }}>
           <AnimatePresence mode="popLayout">
-            {filtered.map((project, i) => (
-              <ProjectCard key={project.name} project={project} index={i} />
-            ))}
+            {filtered.map((project, i) => <ProjectCard key={project.name} project={project} index={i} />)}
           </AnimatePresence>
         </motion.div>
 
         {/* Footer */}
-        <motion.div style={{ marginTop: 100, paddingTop: 40, borderTop: "1px solid #0f1a24", display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-          <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.4em", color: "#1e2d3d", textTransform: "uppercase" }}>
+        <motion.div style={{ marginTop: 100, paddingTop: 40, borderTop: `1px solid ${T.border.subtle}`, display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+          <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.4em", color: T.text.ghost, textTransform: "uppercase" }}>
             Matthew Arvidson · Software Engineer
           </p>
           <div style={{ display: "flex", gap: 24, flexWrap: "wrap", justifyContent: "center" }}>
@@ -444,9 +326,9 @@ export default function ExploreClient({ projects }: { projects: Project[] }) {
               { label: "LinkedIn ↗", href: "https://linkedin.com/in/matthew-arvidson" },
             ].map(({ label, href }) => (
               <a key={label} href={href} target="_blank" rel="noreferrer"
-                style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.08em", color: "#2a3a4a", textDecoration: "none", transition: "color 0.2s" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#00d4ff")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#2a3a4a")}
+                style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.08em", color: T.text.ghost, textDecoration: "none", transition: "color 0.2s" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)}
+                onMouseLeave={(e) => (e.currentTarget.style.color = T.text.ghost)}
               >{label}</a>
             ))}
           </div>

@@ -1,12 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #080b0f;
-  --accent: #00d4ff;
-  --accent-dim: #0099bb;
-  --text-primary: #f0f4f8;
-  --text-secondary: #8892a0;
-  --text-muted: #4a5568;
+  /* mirrors src/lib/tokens.ts — keep in sync */
+  --bg:             #070b10;
+  --bg-card:        #090e17;
+  --bg-surface:     #0d1a26;
+
+  --accent:         #00d4ff;
+  --accent-dim:     #0099bb;
+
+  --text-primary:   #e8edf4;
+  --text-body:      #9aaabb;
+  --text-secondary: #6a8aaa;
+  --text-dim:       #4a6a80;
+  --text-muted:     #4a5568;
+  --text-ghost:     #1e2d3d;
+
+  --border-subtle:  #0f1a24;
+  --border-mid:     #1a2a3a;
+  --border-card:    #16202e;
 }
 
 * {
@@ -25,19 +37,10 @@ body {
 }
 
 /* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: #1e2530;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #2a3444;
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1e2530; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2a3444; }
 
 /* Selection */
 ::selection {

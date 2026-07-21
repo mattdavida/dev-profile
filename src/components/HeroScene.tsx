@@ -10,6 +10,7 @@ import React, {
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Text3D, Center } from "@react-three/drei";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
+import { T } from "@/lib/tokens";
 import * as THREE from "three";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -420,7 +421,7 @@ function cornerStyle(c: Corner): React.CSSProperties {
     bottom: c.startsWith("b") ? 0 : undefined,
     left: c.endsWith("l") ? 0 : undefined,
     right: c.endsWith("r") ? 0 : undefined,
-    borderColor: "#00d4ff",
+    borderColor: T.accent,
     borderTopWidth: c.startsWith("t") ? 1 : 0,
     borderBottomWidth: c.startsWith("b") ? 1 : 0,
     borderLeftWidth: c.endsWith("l") ? 1 : 0,
@@ -440,7 +441,7 @@ function ScanLine() {
         height: 1,
         pointerEvents: "none",
         background:
-          "linear-gradient(to right, transparent 0%, #00d4ff 20%, #ffffff 50%, #00d4ff 80%, transparent 100%)",
+          `linear-gradient(to right, transparent 0%, ${T.accent} 20%, #ffffff 50%, ${T.accent} 80%, transparent 100%)`,
       }}
       initial={{ top: "0%", opacity: 0 }}
       animate={{ top: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
@@ -510,7 +511,7 @@ function ExploreButton({
               style={{
                 position: "absolute",
                 top: 0, left: 0, right: 0, bottom: 0,
-                border: "1px solid #00d4ff",
+                border: `1px solid ${T.accent}`,
                 pointerEvents: "none",
               }}
               animate={{ opacity: hovered ? 0.4 : 0 }}
@@ -546,7 +547,7 @@ function ExploreButton({
                 paddingRight: 52,
               }}
               animate={{
-                color: hovered ? "#ffffff" : "#00d4ff",
+                color: hovered ? "#ffffff" : T.accent,
                 textShadow: hovered
                   ? "0 0 20px rgba(0,212,255,0.9)"
                   : "0 0 8px rgba(0,212,255,0.3)",
@@ -591,7 +592,7 @@ export default function HeroScene({ onExplore }: { onExplore: () => void }) {
       <Canvas
         camera={{ position: [0, 0, 6.5], fov: 52 }}
         gl={{ antialias: true, alpha: false }}
-        style={{ background: "#060912" }}
+        style={{ background: T.bg.page }}
         dpr={[1, 1.5]}
       >
         <Scene />
