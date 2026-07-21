@@ -373,11 +373,12 @@ export default function ExploreClient({ projects }: { projects: Project[] }) {
         </span>
         <div style={{ display: "flex", gap: 20 }}>
           {[
-            { label: "GitHub ↗", href: "https://github.com/mattdavida" },
-            { label: "Nexus ↗", href: NEXUS_PROFILE },
-            { label: "LinkedIn ↗", href: "https://linkedin.com/in/matthew-arvidson" },
-          ].map(({ label, href }) => (
-            <a key={label} href={href} target="_blank" rel="noreferrer"
+            { label: "GitHub ↗", href: "https://github.com/mattdavida", external: true },
+            { label: "Nexus ↗", href: NEXUS_PROFILE, external: true },
+            { label: "LinkedIn ↗", href: "https://linkedin.com/in/matthew-arvidson", external: true },
+            { label: "Resume", href: "/resume", external: false },
+          ].map(({ label, href, external }) => (
+            <a key={label} href={href} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
               style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", letterSpacing: "0.1em", color: "#4a5a6a", textDecoration: "none", transition: "color 0.2s" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "#00d4ff")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "#4a5a6a")}

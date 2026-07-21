@@ -68,6 +68,12 @@ export default function Home() {
             >
               LinkedIn
             </a>
+            <a
+              href="/resume"
+              className="font-mono text-xs tracking-widest text-[--text-secondary] hover:text-[--accent] transition-colors"
+            >
+              Resume
+            </a>
             <button
               onClick={handleExplore}
               className="font-mono text-xs tracking-widest text-[--text-secondary] hover:text-[--accent] transition-colors cursor-pointer bg-transparent border-none"

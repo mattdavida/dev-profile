@@ -24,7 +24,7 @@ export const PROJECTS: Project[] = [
     desc: "RAG-powered analysis pipeline for equity structured note term sheets — ingests PDFs, chunks, embeds, and surfaces structured risk signals.",
     lang: "Python",
     tags: ["AI & Fintech"],
-    url: "https://github.com/mattdavida/structured-notes-intelligence-engine",
+    url: "https://github.com/matthew-arvidson/structured-notes-intelligence-engine",
     stars: null,
   },
   {
@@ -32,7 +32,7 @@ export const PROJECTS: Project[] = [
     desc: "PDF contract → structured risk memo flagging deviations, risk terms, and recommended actions. Built to go beyond simple LLM chat.",
     lang: "Python",
     tags: ["AI & Fintech"],
-    url: "https://github.com/mattdavida/Contract-Intelligence-Engine",
+    url: "https://github.com/matthew-arvidson/Contract-Intelligence-Engine",
     stars: null,
   },
   {
