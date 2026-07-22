@@ -7,7 +7,7 @@ import React, {
   Suspense,
   useEffect,
 } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float, Text3D, Center } from "@react-three/drei";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import { T } from "@/lib/tokens";
@@ -247,6 +247,10 @@ function Particles({ count = 480 }: { count?: number }) {
 
 function NameText() {
   const groupRef = useRef<THREE.Group>(null);
+  const { size } = useThree();
+  const isMobile = size.width < 768;
+  // Scale down on mobile so text fits the narrow viewport
+  const textScale = isMobile ? 0.52 : 1.0;
 
   useFrame((state) => {
     if (!groupRef.current) return;
@@ -268,7 +272,7 @@ function NameText() {
   });
 
   return (
-    <group ref={groupRef} position={[0, -5.5, 0]}>
+    <group ref={groupRef} position={[0, -5.5, 0]} scale={textScale}>
       {/* MATTHEW */}
       <Center position={[0, 0.65, 0]}>
         <Text3D
@@ -335,17 +339,31 @@ function NameText() {
   );
 }
 
+// ─── Responsive camera FOV ────────────────────────────────────────────────────
+
+function ResponsiveCamera() {
+  const { size, camera } = useThree();
+  useEffect(() => {
+    const cam = camera as THREE.PerspectiveCamera;
+    cam.fov = size.width < 768 ? 68 : 52;
+    cam.updateProjectionMatrix();
+  }, [size.width, camera]);
+  return null;
+}
+
 // ─── Camera with smooth parallax ─────────────────────────────────────────────
 
 function ParallaxCamera() {
   const cameraRef = useRef({ x: 0, y: 0 });
+  const { size } = useThree();
+  const isMobile = size.width < 768;
 
   useFrame(({ camera }) => {
+    if (isMobile) return; // touch devices have no mousemove
     // Smooth mouse
     mouse.smooth.x += (mouse.raw.x - mouse.smooth.x) * 0.05;
     mouse.smooth.y += (mouse.raw.y - mouse.smooth.y) * 0.05;
 
-    // Camera parallax — moves opposite to mouse for depth feel
     cameraRef.current.x +=
       (mouse.smooth.x * 0.55 - cameraRef.current.x) * 0.035;
     cameraRef.current.y +=
@@ -353,7 +371,6 @@ function ParallaxCamera() {
 
     camera.position.x = cameraRef.current.x;
     camera.position.y = cameraRef.current.y;
-    // Look slightly toward where it came from — more realistic parallax
     camera.lookAt(
       cameraRef.current.x * 0.15,
       cameraRef.current.y * 0.15,
@@ -369,6 +386,7 @@ function ParallaxCamera() {
 function Scene() {
   return (
     <>
+      <ResponsiveCamera />
       <ParallaxCamera />
 
       {/* Lighting */}

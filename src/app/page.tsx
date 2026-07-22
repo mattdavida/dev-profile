@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
+import Nav from "@/components/Nav";
+import { NEXUS_PROFILE } from "@/data/projects";
 
 const HeroScene = dynamic(() => import("@/components/HeroScene"), {
   ssr: false,
@@ -22,7 +24,6 @@ export default function Home() {
 
   function handleExplore() {
     setLeaving(true);
-    // slight delay so the exit animation can play before navigation
     setTimeout(() => router.push("/explore"), 600);
   }
 
@@ -38,51 +39,18 @@ export default function Home() {
           <HeroScene onExplore={handleExplore} />
         </div>
 
-        {/* Top nav */}
-        <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-8 py-6">
-          <span className="font-mono text-xs tracking-[0.3em] text-[--text-secondary] uppercase select-none">
-            matthew-arvidson.com
-          </span>
-          <div className="flex gap-6">
-            <a
-              href="https://github.com/mattdavida"
-              target="_blank"
-              rel="noreferrer"
-              className="font-mono text-xs tracking-widest text-[--text-secondary] hover:text-[--accent] transition-colors"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://www.nexusmods.com/profile/DevToolsMaster/mods"
-              target="_blank"
-              rel="noreferrer"
-              className="font-mono text-xs tracking-widest text-[--text-secondary] hover:text-[--accent] transition-colors"
-            >
-              Nexus
-            </a>
-            <a
-              href="https://linkedin.com/in/matthew-arvidson"
-              target="_blank"
-              rel="noreferrer"
-              className="font-mono text-xs tracking-widest text-[--text-secondary] hover:text-[--accent] transition-colors"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="/resume"
-              className="font-mono text-xs tracking-widest text-[--text-secondary] hover:text-[--accent] transition-colors"
-            >
-              Resume
-            </a>
-            <button
-              onClick={handleExplore}
-              className="font-mono text-xs tracking-widest text-[--text-secondary] hover:text-[--accent] transition-colors cursor-pointer bg-transparent border-none"
-            >
-              Projects
-            </button>
-          </div>
+        {/* Nav — absolute so it floats over the canvas */}
+        <div className="absolute top-0 left-0 right-0 z-10">
+          <Nav
+            links={[
+              { label: "GitHub ↗", href: "https://github.com/mattdavida", external: true },
+              { label: "Nexus ↗", href: NEXUS_PROFILE, external: true },
+              { label: "LinkedIn ↗", href: "https://linkedin.com/in/matthew-arvidson", external: true },
+              { label: "Resume", href: "/resume" },
+              { label: "Projects", onClick: handleExplore, href: "#" },
+            ]}
+          />
         </div>
-
       </motion.div>
     </main>
   );

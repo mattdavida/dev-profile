@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef, CSSProperties } from "react";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LANG_COLORS,
@@ -12,6 +11,7 @@ import {
 } from "@/data/projects";
 import { formatUpdated } from "@/lib/github";
 import { T } from "@/lib/tokens";
+import Nav from "@/components/Nav";
 
 // ─── Scan-line hook + component ───────────────────────────────────────────────
 
@@ -79,17 +79,6 @@ function Typewriter({
     </span>
   );
 }
-
-// ─── Nav link style ───────────────────────────────────────────────────────────
-
-const navLinkStyle: CSSProperties = {
-  fontFamily: "var(--font-geist-mono), monospace",
-  fontSize: "0.7rem",
-  letterSpacing: "0.1em",
-  color: T.text.dim,
-  textDecoration: "none",
-  transition: "color 0.2s",
-};
 
 // ─── Corner-bracket category pill ─────────────────────────────────────────────
 
@@ -244,34 +233,15 @@ export default function ExploreClient({ projects }: { projects: Project[] }) {
       <div style={{ position: "fixed", inset: 0, backgroundImage: "radial-gradient(rgba(0,212,255,0.028) 1px, transparent 1px)", backgroundSize: "28px 28px", pointerEvents: "none", zIndex: 0 }} />
       <div style={{ position: "fixed", top: -200, left: "50%", transform: "translateX(-50%)", width: 600, height: 400, background: "radial-gradient(ellipse, rgba(0,212,255,0.05) 0%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
 
-      {/* Nav */}
-      <nav style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 32px", background: "rgba(7,11,16,0.88)", backdropFilter: "blur(14px)", borderBottom: `1px solid ${T.border.subtle}` }}>
-        <Link href="/"
-          style={{ display: "flex", alignItems: "center", gap: 8, ...navLinkStyle, letterSpacing: "0.3em" }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)}
-          onMouseLeave={(e) => (e.currentTarget.style.color = T.text.dim)}
-        >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 2L3 6l5 4" /></svg>
-          BACK
-        </Link>
-        <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.3em", color: T.text.ghost, userSelect: "none" }}>
-          MATTHEW-ARVIDSON.COM
-        </span>
-        <div style={{ display: "flex", gap: 20 }}>
-          {[
-            { label: "GitHub ↗", href: "https://github.com/mattdavida", external: true },
-            { label: "Nexus ↗", href: NEXUS_PROFILE, external: true },
-            { label: "LinkedIn ↗", href: "https://linkedin.com/in/matthew-arvidson", external: true },
-            { label: "Resume", href: "/resume", external: false },
-          ].map(({ label, href, external }) => (
-            <a key={label} href={href} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
-              style={navLinkStyle}
-              onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)}
-              onMouseLeave={(e) => (e.currentTarget.style.color = T.text.dim)}
-            >{label}</a>
-          ))}
-        </div>
-      </nav>
+      <Nav
+        backHref="/"
+        links={[
+          { label: "GitHub ↗", href: "https://github.com/mattdavida", external: true },
+          { label: "Nexus ↗", href: NEXUS_PROFILE, external: true },
+          { label: "LinkedIn ↗", href: "https://linkedin.com/in/matthew-arvidson", external: true },
+          { label: "Resume", href: "/resume" },
+        ]}
+      />
 
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "64px 32px 120px", position: "relative", zIndex: 1 }}>
 
