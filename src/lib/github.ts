@@ -18,6 +18,7 @@ export interface RepoMeta {
   forks: number;
   updatedAt: string;
   description: string | null;
+  url: string;
 }
 
 /** Map of repo name → live GitHub metadata. Fetched server-side, cached 1 hour. */
@@ -55,6 +56,7 @@ export async function fetchRepoMetaMap(): Promise<RepoMetaMap> {
         forks: repo.forks_count,
         updatedAt: repo.updated_at,
         description: repo.description,
+        url: repo.html_url,
       };
     }
   }

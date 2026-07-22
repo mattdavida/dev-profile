@@ -10,16 +10,18 @@ export default async function ExplorePage() {
   try {
     metaMap = await fetchRepoMetaMap();
   } catch (err) {
-    // Network failure or rate-limit: gracefully fall back to static star counts
-    console.warn("[ExplorePage] GitHub API unavailable, using static data:", err);
+    console.warn("[ExplorePage] GitHub API unavailable, using static fallback:", err);
   }
 
-  // Merge live stars + updatedAt into our curated project list
+  // Merge live data into our curated list.
+  // url comes from the API (authoritative — no wrong-account bugs).
+  // Fallback: construct from the account field if API is unavailable.
   const projects = PROJECTS.map((p) => {
     const live = metaMap[p.name];
     return {
       ...p,
-      stars: live?.stars ?? p.stars ?? null,
+      url: live?.url ?? `https://github.com/${p.account}/${p.name}`,
+      stars: live?.stars ?? null,
       updatedAt: live?.updatedAt ?? null,
     };
   });
