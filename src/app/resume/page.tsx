@@ -8,7 +8,6 @@ import Nav from "@/components/Nav";
 // ─── Resume data ──────────────────────────────────────────────────────────────
 
 const CONTACT = {
-  phone: "(760) 583-7461",
   email: "mattdavida@outlook.com",
   linkedin: { label: "linkedin.com/in/matthew-arvidson", href: "https://linkedin.com/in/matthew-arvidson" },
   github: { label: "github.com/mattdavida", href: "https://github.com/mattdavida" },
@@ -208,8 +207,6 @@ export default function ResumePage() {
             Matthew Arvidson
           </h1>
           <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", color: T.text.secondary, lineHeight: 1.9, marginBottom: 20 }}>
-            {CONTACT.phone}
-            <span style={{ color: T.border.mid, margin: "0 10px" }}>·</span>
             <a href={`mailto:${CONTACT.email}`} style={{ color: T.text.secondary, textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)} onMouseLeave={(e) => (e.currentTarget.style.color = T.text.secondary)}>{CONTACT.email}</a>
             <span style={{ color: T.border.mid, margin: "0 10px" }}>·</span>
             <a href={CONTACT.linkedin.href} target="_blank" rel="noreferrer" style={{ color: T.text.secondary, textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)} onMouseLeave={(e) => (e.currentTarget.style.color = T.text.secondary)}>{CONTACT.linkedin.label}</a>
