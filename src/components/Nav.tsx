@@ -12,6 +12,13 @@ export interface NavLink {
   onClick?: () => void;
 }
 
+/** Shared external links used across all pages — import and spread these. */
+export const NAV_EXTERNAL_LINKS: NavLink[] = [
+  { label: "GitHub ↗",   href: "https://github.com/mattdavida", external: true },
+  { label: "Nexus ↗",    href: "https://www.nexusmods.com/profile/DevToolsMaster/mods", external: true },
+  { label: "LinkedIn ↗", href: "https://linkedin.com/in/matthew-arvidson", external: true },
+];
+
 interface NavProps {
   /** If provided, renders a "← BACK" link on the left */
   backHref?: string;

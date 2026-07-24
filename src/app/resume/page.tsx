@@ -1,9 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { NEXUS_PROFILE } from "@/data/projects";
 import { T } from "@/lib/tokens";
-import Nav from "@/components/Nav";
+import Nav, { NAV_EXTERNAL_LINKS } from "@/components/Nav";
 
 // ─── Resume data ──────────────────────────────────────────────────────────────
 
@@ -156,10 +155,8 @@ export default function ResumePage() {
       <Nav
         backHref="/"
         links={[
-          { label: "Projects",   href: "/explore" },
-          { label: "GitHub ↗",   href: "https://github.com/mattdavida", external: true },
-          { label: "Nexus ↗",    href: NEXUS_PROFILE, external: true },
-          { label: "LinkedIn ↗", href: CONTACT.linkedin.href, external: true },
+          ...NAV_EXTERNAL_LINKS,
+          { label: "Projects", href: "/explore" },
         ]}
       />
 

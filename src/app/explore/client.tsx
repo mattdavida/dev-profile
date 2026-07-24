@@ -11,7 +11,7 @@ import {
 } from "@/data/projects";
 import { formatUpdated } from "@/lib/github";
 import { T } from "@/lib/tokens";
-import Nav from "@/components/Nav";
+import Nav, { NAV_EXTERNAL_LINKS } from "@/components/Nav";
 
 // ─── Scan-line hook + component ───────────────────────────────────────────────
 
@@ -236,9 +236,7 @@ export default function ExploreClient({ projects }: { projects: Project[] }) {
       <Nav
         backHref="/"
         links={[
-          { label: "GitHub ↗", href: "https://github.com/mattdavida", external: true },
-          { label: "Nexus ↗", href: NEXUS_PROFILE, external: true },
-          { label: "LinkedIn ↗", href: "https://linkedin.com/in/matthew-arvidson", external: true },
+          ...NAV_EXTERNAL_LINKS,
           { label: "Resume", href: "/resume" },
         ]}
       />

@@ -4,8 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import Nav from "@/components/Nav";
-import { NEXUS_PROFILE } from "@/data/projects";
+import Nav, { NAV_EXTERNAL_LINKS } from "@/components/Nav";
 
 const HeroScene = dynamic(() => import("@/components/HeroScene"), {
   ssr: false,
@@ -43,10 +42,8 @@ export default function Home() {
         <div className="absolute top-0 left-0 right-0 z-10">
           <Nav
             links={[
-              { label: "GitHub ↗", href: "https://github.com/mattdavida", external: true },
-              { label: "Nexus ↗", href: NEXUS_PROFILE, external: true },
-              { label: "LinkedIn ↗", href: "https://linkedin.com/in/matthew-arvidson", external: true },
-              { label: "Resume", href: "/resume" },
+              ...NAV_EXTERNAL_LINKS,
+              { label: "Resume",   href: "/resume" },
               { label: "Projects", onClick: handleExplore, href: "#" },
             ]}
           />
