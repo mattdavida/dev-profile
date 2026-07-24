@@ -11,17 +11,19 @@ const CONTACT = {
   email: "mattdavida@outlook.com",
   linkedin: { label: "linkedin.com/in/matthew-arvidson", href: "https://linkedin.com/in/matthew-arvidson" },
   github: { label: "github.com/mattdavida", href: "https://github.com/mattdavida" },
+  site: { label: "matthew-arvidson.com", href: "https://matthew-arvidson.com" },
 };
 
 const SUMMARY =
   "Senior Full-Stack Engineer with 9+ years embedded in Tier 1 investment banks, translating complex regulatory and business requirements into production-grade financial systems. A technical lead who partners with traders, compliance teams, and business stakeholders to drive high-stakes modernizations — from migrating billion-dollar lending platforms to building AI-powered analytics tools. Known for sound architectural judgment, mentoring engineers on modern patterns and AI tooling, and owning delivery from architecture through DevOps.";
 
 const SKILLS = [
-  { label: "Languages & Frameworks", items: ["TypeScript", "JavaScript", "Python", "C#", "Java", "React", "Angular", "Node.js", "Express.js", ".NET", "Redux Toolkit"] },
-  { label: "Databases", items: ["MongoDB", "SQL Server", "SQLite", "kdb+/q", "PostgreSQL", "ChromaDB"] },
-  { label: "AI & ML", items: ["Azure OpenAI (GPT-4o)", "LangGraph", "RAG pipelines", "ChromaDB", "Pydantic", "Prompt Engineering"] },
-  { label: "Architecture & Tools", items: ["Module Federation v2", "Monorepo", "MVC", "Azure DevOps", "Jenkins CI/CD", "Git", "Gradle", "Linux"] },
-  { label: "Financial Technology", items: ["3Forge", "Trading Dashboards", "MNPI Compliance", "CDM / FINOS", "Syndicated Lending", "kdb+"] },
+  { label: "Languages / Frameworks", items: ["TypeScript", "JavaScript", "AngularJS", "Angular", "Node.js", "Python", "Express.js", "C#", ".NET Framework", "Web API", "React", "Redux Toolkit (RTK)"] },
+  { label: "Databases", items: ["MongoDB", "SQL Server", "SQLite", "kdb+/q"] },
+  { label: "SDLC", items: ["Agile"] },
+  { label: "Architecture & Tools", items: ["Module Federation v2", "Monorepo", "MVC", "SPA Design", "Dependency Injection", "Git", "Azure DevOps", "Gradle", "Jenkins CI/CD", "Linux"] },
+  { label: "Financial Technology", items: ["Trading Dashboards", "Financial Reporting", "Enterprise Admin Platforms", "MNPI Data Handling", "Syndicated Lending", "3Forge"] },
+  { label: "AI & ML Tools", items: ["Azure OpenAI (GPT-5.4)", "LangGraph", "ChromaDB", "RAG Pipelines", "Pydantic", "Cursor"] },
 ];
 
 const EXPERIENCE = [
@@ -34,41 +36,42 @@ const EXPERIENCE = [
       {
         label: "Internal AI Initiatives — BIP ATS & Structured Notes",
         bullets: [
-          "Designed and built BIP ATS, an Azure OpenAI-powered resume evaluation platform using Azure Functions and Python — automating first-pass candidate screening with deterministic Pydantic-validated scoring, improving evaluation throughput by ~100×.",
-          "Architected the Structured Notes Intelligence Engine: a LangGraph orchestration pipeline with risk-tier routing (HIGH/MEDIUM/LOW) that extracts 50+ structured fields per note, drives RAG-powered natural-language queries across the note book (ChromaDB + Azure OpenAI embeddings), and flags baseline deviations.",
-          "Provisioned complete infrastructure as code using Azure Bicep — repeatable, one-command deployments of PostgreSQL, OpenAI, and Key Vault.",
+          "Designed and built BIP ATS, an Azure OpenAI-powered resume evaluation platform using Azure Functions and Python — automating first-pass candidate screening with deterministic Pydantic-validated scoring and improving evaluation throughput by ~100x compared to manual review.",
+          "Architected the Structured Notes Intelligence Engine, a LangGraph orchestration pipeline with risk-tier routing (HIGH/MEDIUM/LOW) that extracts 50+ structured fields per note, drives RAG-powered natural-language queries across the note book (ChromaDB + Azure OpenAI embeddings), and flags baseline deviations — minimizing unnecessary LLM calls while maintaining full traceability.",
+          "Provisioned complete infrastructure as code using Azure Bicep, enabling repeatable, one-command deployments of PostgreSQL, OpenAI, and Key Vault.",
         ],
       },
       {
-        label: "Client: Bank of America — 3Forge Integration",
+        label: "Engagement: Tier 1 Investment Bank — 3Forge Integration",
         bullets: [
-          "Led a strategic 6-week modernization assessment, architecting a Java + 3Forge authoring framework to enable non-technical teams to modernize 150+ legacy trading workbench screens.",
-          "Pioneered custom Java business logic integration into a 3Forge trading dashboard via automated Gradle workflows — transforming a static demo into a production-ready platform for complex real-time calculations.",
-          "Designed a Python + SQLite data pipeline for dynamic trading data generation, enabling advanced SQL filtering and seamless table-to-chart communication.",
+          "Led a strategic 6-week modernization assessment for a Tier 1 financial client, architecting a comprehensive authoring framework using Java and 3Forge low-code platform to enable non-technical teams to modernize 150+ legacy trading workbench screens.",
+          "Pioneered the integration of custom Java business logic into a 3Forge trading dashboard using automated Gradle workflows, transforming a static demo into a production-ready platform capable of complex real-time calculations.",
+          "Led the design of a sophisticated Python and SQLite data pipeline for dynamic trading data generation, enabling advanced SQL filtering and seamless table-to-chart communication in enterprise trading dashboards.",
+          "Collaborated with traders and business stakeholders to understand domain-specific workflows and inform a scalable, modular design tailored for high-performance trading environments.",
         ],
       },
       {
-        label: "Client: Morgan Stanley — Lending & Compliance",
+        label: "Engagement: Tier 1 Investment Bank — Lending & Compliance",
         bullets: [
-          "Led architecture and project management for the migration of a mission-critical syndicated lending platform (AngularJS → React) handling MNPI data and multi-billion-dollar loan syndications.",
-          "Spearheaded modernization of two additional legacy AngularJS applications to React, yielding ~30% performance improvement and expanding the hiring talent pool.",
-          "Architected an integrated compliance ecosystem that reduced quarterly reporting time from 3 months to on-demand, owning the full DevOps lifecycle: Git, Linux, Jenkins CI/CD.",
-          "Designed and implemented a firm-wide global seat reservation system using React, TypeScript, and Python.",
+          "Led the technical architecture and project management for the migration of a mission-critical syndicated lending platform from AngularJS to React, ensuring on-schedule delivery for a system handling MNPI data and multi-billion-dollar loan syndications.",
+          "Spearheaded the modernization of two additional legacy AngularJS applications to React, resulting in an estimated 30% improvement in application performance and expanding the talent pool for future development.",
+          "Architected and built an integrated compliance ecosystem that reduced quarterly reporting time from 3 months to on-demand, managing the complete DevOps lifecycle including Git setup, Linux configuration, and Jenkins CI/CD pipelines.",
+          "Designed and implemented a firm-wide global seat reservation system using React, TypeScript, and Python, delivering a full-stack solution within an Agile framework.",
         ],
       },
       {
-        label: "Client: Insurance Placing Platform (PPL)",
+        label: "Engagement: Insurance Technology Platform",
         bullets: [
-          "Co-architected a micro-frontend application with a .NET backend, integrating an AI-powered chatbot that reduced contract data query times by an estimated 90%.",
-          "Directed a React/Redux Toolkit frontend + C# .NET backend using Module Federation v2 in a monorepo, improving scalability and maintainability.",
+          "Co-architected a micro-frontend application with a .NET backend for a next-generation insurance placing platform, integrating an AI-powered chatbot that reduced contract data query times by an estimated 90%.",
+          "Directed the implementation of a modern architecture using a React/Redux Toolkit frontend and C# .NET backend, leveraging Module Federation v2 in a monorepo to improve scalability and code maintainability.",
         ],
       },
       {
         label: "Team Leadership & DevOps (Cross-Client)",
         bullets: [
-          "Championed TDD — established Jest, Puppeteer, Python unittest, and Vitest frameworks, increasing code coverage from 20% to 80%+ and reducing critical post-release bugs by 40%.",
-          "Led technical mentorship on AI tooling and complex problem-solving, improving overall team productivity by ~30%.",
-          "Optimized Azure DevOps workflows: automated PR checks, enforced coding standards, improved team velocity.",
+          "Championed TDD practices and established comprehensive testing frameworks (Jest, Puppeteer, Python unittest, Vitest), increasing code coverage from 20% to over 80% and reducing critical post-release bugs by 40%.",
+          "Acted as the lead technical resource, mentoring developers on AI tool usage and complex problem-solving, improving overall team productivity by ~30%.",
+          "Improved team velocity by optimizing Azure DevOps workflows, implementing automated pull request checks, and enforcing coding standards across the team.",
         ],
       },
     ],
@@ -80,12 +83,12 @@ const EXPERIENCE = [
     period: "2019 – 2021",
     groups: [
       {
-        label: "Client: Middle-Market Investment Bank",
+        label: "Engagement: Middle-Market Investment Bank",
         bullets: [
-          "Developed and maintained a custom NPM component library for Kentico CMS, enabling modern Angular components within a legacy C# Web Forms architecture.",
-          "Translated Sketch and InVision wireframes into responsive Angular components, contributing to a 15% increase in user engagement metrics.",
-          "Engineered a full-stack user retention feature using SQL Server stored procedures, leading to a 10% increase in completed signups.",
-          "Built automated UI test suites using Selenium and C#; mentored junior developers on responsive design and testing best practices.",
+          "Developed and maintained a custom NPM component library for Kentico CMS, enabling the use of modern Angular components within a legacy C# Web Forms architecture.",
+          "Collaborated with marketing and design teams to translate Sketch and InVision wireframes into responsive Angular components, directly contributing to user experience improvements that increased user engagement metrics by 15%.",
+          "Engineered a full-stack user retention feature for the main MVC application, utilizing SQL Server stored procedures to capture and re-engage users who abandoned the registration process, leading to a 10% increase in completed signups.",
+          "Built and maintained automated UI test suites using Selenium and C#, and mentored junior developers on responsive design and testing best practices.",
         ],
       },
     ],
@@ -97,36 +100,17 @@ const EXPERIENCE = [
     period: "2017 – 2019",
     groups: [
       {
-        label: "Client: Healthcare Services",
+        label: "Engagement: Healthcare Services",
         bullets: [
-          "Led migration of a hybrid healthcare application from AngularJS to Angular 6 — improving mobile performance by 50%.",
-          "Developed new Angular 6 components replacing legacy implementations; collaborated with QA to achieve a 25% decrease in user-reported issues post-release.",
-          "Conducted peer code reviews and mentored colleagues on Agile estimation, improving sprint planning accuracy.",
+          "Led the successful migration of a hybrid healthcare application from AngularJS to Angular 6, designing and implementing responsive features that improved performance on mobile devices by 50%.",
+          "Developed new Angular 6 components to replace legacy implementations, collaborating with QA to track and resolve bugs, which resulted in a 25% decrease in user-reported issues post-release.",
+          "Conducted peer code reviews and mentored colleagues on Agile story point estimation, contributing to more accurate sprint planning and team velocity.",
         ],
       },
     ],
   },
 ];
 
-const PROJECTS = [
-  {
-    title: "C# Modding Framework — Hollow Knight: Silksong",
-    period: "Jun 2025 – Present",
-    bullets: [
-      "Architected a comprehensive C#/.NET modding suite achieving 50,000+ unique downloads in its first month — top-rated tool for the game.",
-      "Reverse-engineered IL2CPP systems, implemented a custom GUI framework, and used reflection for deep, safe integration with the compiled game engine.",
-      "Engineered a reusable, service-based C# architecture to manage game state, inventory, and player data — adopted as a community standard.",
-    ],
-  },
-  {
-    title: "C# Reverse Engineering & Tools — AI Limit",
-    period: "2025",
-    bullets: [
-      "Pioneered the first major modding framework for AI Limit using advanced IL2CPP interop where no public API existed.",
-      "Developed and published 15+ tools and mods across C++, Lua, and C# for Unreal and Unity engines — expertise in memory editing, cross-language interop, and low-level system analysis.",
-    ],
-  },
-];
 
 const EDUCATION = [
   {
@@ -212,6 +196,8 @@ export default function ResumePage() {
             <a href={CONTACT.linkedin.href} target="_blank" rel="noreferrer" style={{ color: T.text.secondary, textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)} onMouseLeave={(e) => (e.currentTarget.style.color = T.text.secondary)}>{CONTACT.linkedin.label}</a>
             <span style={{ color: T.border.mid, margin: "0 10px" }}>·</span>
             <a href={CONTACT.github.href} target="_blank" rel="noreferrer" style={{ color: T.text.secondary, textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)} onMouseLeave={(e) => (e.currentTarget.style.color = T.text.secondary)}>{CONTACT.github.label}</a>
+            <span style={{ color: T.border.mid, margin: "0 10px" }}>·</span>
+            <a href={CONTACT.site.href} target="_blank" rel="noreferrer" style={{ color: T.text.secondary, textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)} onMouseLeave={(e) => (e.currentTarget.style.color = T.text.secondary)}>{CONTACT.site.label}</a>
           </p>
           <p style={{ fontSize: "0.75rem", fontFamily: "var(--font-geist-mono), monospace", color: T.text.dim, letterSpacing: "0.04em", lineHeight: 1.6 }}>
             Senior Full-Stack Engineer · Financial Systems Modernization · React / TypeScript / Node.js / Python / C# / Java
@@ -237,13 +223,13 @@ export default function ResumePage() {
         {/* ── Skills ── */}
         <motion.section {...fadeUp(0.08)} style={{ marginBottom: 52 }}>
           <SectionHeader>Core Skills</SectionHeader>
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {SKILLS.map((group) => (
-              <div key={group.label} style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
-                <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.08em", color: T.text.dim, minWidth: 170, paddingTop: 3, flexShrink: 0 }}>
+              <div key={group.label} style={{ display: "grid", gridTemplateColumns: "170px 1fr", gap: "0 20px", alignItems: "baseline" }}>
+                <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.08em", color: T.text.dim }}>
                   {group.label}
                 </span>
-                <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                   {group.items.map((item) => (
                     <span key={item} style={{ fontFamily: "monospace", fontSize: "0.7rem", padding: "3px 10px", background: T.bg.surface, color: T.text.secondary, border: `1px solid ${T.border.mid}`, borderRadius: 2 }}>
                       {item}
@@ -286,27 +272,6 @@ export default function ResumePage() {
                     </div>
                   ))}
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* ── Technical Projects ── */}
-        <motion.section {...fadeUp(0.1)} style={{ marginBottom: 52 }}>
-          <SectionHeader>Technical Projects & Open Source</SectionHeader>
-          <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-            {PROJECTS.map((proj, pi) => (
-              <motion.div key={proj.title} {...fadeUp(0.04 * pi)}
-                style={{ borderLeft: `1px solid ${T.border.subtle}`, paddingLeft: 24, position: "relative" }}
-              >
-                <div style={{ position: "absolute", left: -4, top: 6, width: 7, height: 7, borderRadius: "50%", background: T.bg.surface, border: `1px solid ${T.accent}` }} />
-                <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 12 }}>
-                  <h3 style={{ fontSize: "0.88rem", fontWeight: 600, color: T.text.primary }}>{proj.title}</h3>
-                  <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", color: T.text.dim }}>{proj.period}</span>
-                </div>
-                <ul style={{ padding: 0, margin: 0 }}>
-                  {proj.bullets.map((b, i) => <Bullet key={i} text={b} />)}
-                </ul>
               </motion.div>
             ))}
           </div>
