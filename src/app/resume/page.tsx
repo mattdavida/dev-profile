@@ -156,6 +156,7 @@ export default function ResumePage() {
       <Nav
         backHref="/"
         links={[
+          { label: "Projects",   href: "/explore" },
           { label: "GitHub ↗",   href: "https://github.com/mattdavida", external: true },
           { label: "Nexus ↗",    href: NEXUS_PROFILE, external: true },
           { label: "LinkedIn ↗", href: CONTACT.linkedin.href, external: true },
