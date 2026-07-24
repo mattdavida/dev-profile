@@ -10,118 +10,85 @@ import Nav from "@/components/Nav";
 const CONTACT = {
   email: "mattdavida@outlook.com",
   linkedin: { label: "linkedin.com/in/matthew-arvidson", href: "https://linkedin.com/in/matthew-arvidson" },
-  github: { label: "github.com/mattdavida", href: "https://github.com/mattdavida" },
-  site: { label: "matthew-arvidson.com", href: "https://matthew-arvidson.com" },
+  github:   { label: "github.com/mattdavida",            href: "https://github.com/mattdavida" },
+  site:     { label: "matthew-arvidson.com",             href: "https://matthew-arvidson.com" },
 };
 
 const SUMMARY =
-  "Senior Full-Stack Engineer with 9+ years embedded in Tier 1 investment banks, translating complex regulatory and business requirements into production-grade financial systems. A technical lead who partners with traders, compliance teams, and business stakeholders to drive high-stakes modernizations — from migrating billion-dollar lending platforms to building AI-powered analytics tools. Known for sound architectural judgment, mentoring engineers on modern patterns and AI tooling, and owning delivery from architecture through DevOps.";
+  "Software Engineer embedded within Tier 1 investment banks, specializing in bridging enterprise LLMs with modern user experiences and highly regulated financial systems. Proven track record architecting enterprise AI orchestration pipelines and React-based micro-frontends. Technical leader who partners directly with business stakeholders to modernize multi-billion-dollar legacy platforms into interactive, human-in-the-loop workflows with end-to-end compliance traceability.";
 
 const SKILLS = [
-  { label: "Languages / Frameworks", items: ["TypeScript", "JavaScript", "AngularJS", "Angular", "Node.js", "Python", "Express.js", "C#", ".NET Framework", "Web API", "React", "Redux Toolkit (RTK)"] },
-  { label: "Databases", items: ["MongoDB", "SQL Server", "SQLite", "kdb+/q"] },
-  { label: "SDLC", items: ["Agile"] },
-  { label: "Architecture & Tools", items: ["Module Federation v2", "Monorepo", "MVC", "SPA Design", "Dependency Injection", "Git", "Azure DevOps", "Gradle", "Jenkins CI/CD", "Linux"] },
-  { label: "Financial Technology", items: ["Trading Dashboards", "Financial Reporting", "Enterprise Admin Platforms", "MNPI Data Handling", "Syndicated Lending", "3Forge"] },
-  { label: "AI & ML Tools", items: ["Azure OpenAI (GPT-5.4)", "LangGraph", "ChromaDB", "RAG Pipelines", "Pydantic", "Cursor"] },
+  {
+    label: "AI & ML",
+    items: ["Azure OpenAI", "LangGraph", "RAG", "ChromaDB", "Pydantic", "Prompt Engineering", "Human-in-the-Loop"],
+  },
+  {
+    label: "Capital Markets",
+    items: ["3forge AMI", "ISDA CDM", "FpML", "Syndicated Lending", "CFTC/EMIR"],
+  },
+  {
+    label: "Front End",
+    items: ["React", "Next.js", "TypeScript", "Redux Toolkit", "AG Grid", "Highstock", "Module Federation v2", "Shadow DOM"],
+  },
+  {
+    label: "Back End",
+    items: ["Python / FastAPI", "Java / Spring Boot", "Node.js", "C# .NET", "REST / GraphQL", "Kafka", "PostgreSQL"],
+  },
+  {
+    label: "Cloud & DevOps",
+    items: ["Azure Bicep", "Docker", "Jenkins", "Azure DevOps", "Git", "Linux"],
+  },
 ];
 
 const EXPERIENCE = [
   {
-    company: "Bip US (Formerly Riskcare)",
-    location: "New York (Remote) / Charlotte, NC",
-    title: "Senior Full-Stack Developer / Technical Lead / Project Owner",
+    company: "BIP US",
+    title: "Lead AI & Full-Stack Engineer",
     period: "May 2021 – Present",
-    groups: [
-      {
-        label: "Internal AI Initiatives — BIP ATS & Structured Notes",
-        bullets: [
-          "Designed and built BIP ATS, an Azure OpenAI-powered resume evaluation platform using Azure Functions and Python — automating first-pass candidate screening with deterministic Pydantic-validated scoring and improving evaluation throughput by ~100x compared to manual review.",
-          "Architected the Structured Notes Intelligence Engine, a LangGraph orchestration pipeline with risk-tier routing (HIGH/MEDIUM/LOW) that extracts 50+ structured fields per note, drives RAG-powered natural-language queries across the note book (ChromaDB + Azure OpenAI embeddings), and flags baseline deviations — minimizing unnecessary LLM calls while maintaining full traceability.",
-          "Provisioned complete infrastructure as code using Azure Bicep, enabling repeatable, one-command deployments of PostgreSQL, OpenAI, and Key Vault.",
-        ],
-      },
-      {
-        label: "Engagement: Tier 1 Investment Bank — 3Forge Integration",
-        bullets: [
-          "Led a strategic 6-week modernization assessment for a Tier 1 financial client, architecting a comprehensive authoring framework using Java and 3Forge low-code platform to enable non-technical teams to modernize 150+ legacy trading workbench screens.",
-          "Pioneered the integration of custom Java business logic into a 3Forge trading dashboard using automated Gradle workflows, transforming a static demo into a production-ready platform capable of complex real-time calculations.",
-          "Led the design of a sophisticated Python and SQLite data pipeline for dynamic trading data generation, enabling advanced SQL filtering and seamless table-to-chart communication in enterprise trading dashboards.",
-          "Collaborated with traders and business stakeholders to understand domain-specific workflows and inform a scalable, modular design tailored for high-performance trading environments.",
-        ],
-      },
-      {
-        label: "Engagement: Tier 1 Investment Bank — Lending & Compliance",
-        bullets: [
-          "Led the technical architecture and project management for the migration of a mission-critical syndicated lending platform from AngularJS to React, ensuring on-schedule delivery for a system handling MNPI data and multi-billion-dollar loan syndications.",
-          "Spearheaded the modernization of two additional legacy AngularJS applications to React, resulting in an estimated 30% improvement in application performance and expanding the talent pool for future development.",
-          "Architected and built an integrated compliance ecosystem that reduced quarterly reporting time from 3 months to on-demand, managing the complete DevOps lifecycle including Git setup, Linux configuration, and Jenkins CI/CD pipelines.",
-          "Designed and implemented a firm-wide global seat reservation system using React, TypeScript, and Python, delivering a full-stack solution within an Agile framework.",
-        ],
-      },
-      {
-        label: "Engagement: Insurance Technology Platform",
-        bullets: [
-          "Co-architected a micro-frontend application with a .NET backend for a next-generation insurance placing platform, integrating an AI-powered chatbot that reduced contract data query times by an estimated 90%.",
-          "Directed the implementation of a modern architecture using a React/Redux Toolkit frontend and C# .NET backend, leveraging Module Federation v2 in a monorepo to improve scalability and code maintainability.",
-        ],
-      },
-      {
-        label: "Team Leadership & DevOps (Cross-Client)",
-        bullets: [
-          "Championed TDD practices and established comprehensive testing frameworks (Jest, Puppeteer, Python unittest, Vitest), increasing code coverage from 20% to over 80% and reducing critical post-release bugs by 40%.",
-          "Acted as the lead technical resource, mentoring developers on AI tool usage and complex problem-solving, improving overall team productivity by ~30%.",
-          "Improved team velocity by optimizing Azure DevOps workflows, implementing automated pull request checks, and enforcing coding standards across the team.",
-        ],
-      },
+    bullets: [
+      "Architected an enterprise RAG pipeline using Azure OpenAI and LangGraph to ingest, triage, and extract 50+ fields from structured note term sheets.",
+      "Engineered a Human-in-the-Loop review application using Next.js and AG Grid with confidence scoring, LLM reasoning, and source attribution for end-to-end compliance traceability.",
+      "Architected the end-to-end platform using FastAPI, Azure PostgreSQL, and Azure Bicep, enabling repeatable one-command infrastructure provisioning.",
+      "Developed an Azure OpenAI-powered applicant evaluation platform using Pydantic-validated structured scoring, increasing recruiter review throughput by approximately 100×.",
+      "Led modernization assessment of 150+ legacy trading workbench screens on the 3forge AMI platform.",
+      "Pioneered a React integration framework inside 3forge using a custom Java plugin with Shadow DOM isolation and bidirectional event handling.",
+      "Engineered Kafka streaming integrations inside 3forge for Bloomberg market data powering synchronized multi-panel trading dashboards.",
+      "Partnered directly with traders and business stakeholders to prototype a structured-notes trading platform that secured continued modernization support.",
+      "Spearheaded ISDA CDM transformation proof of concept converting legacy FpML/XML trade data into standardized JSON.",
+      "Achieved 637/637 validation rules using the official FINOS Java library through a precise metadata post-processing sequence.",
+      "Built a React/Vite comparison interface for legacy versus CDM trade data supporting compliance initiatives.",
+      "Led architecture and migration of a syndicated lending platform from AngularJS to React supporting multi-billion-dollar loan portfolios and MNPI workflows.",
+      "Architected a compliance-focused DevOps ecosystem reducing quarterly regulatory reporting from three months to on-demand.",
+      "Co-architected a micro-frontend insurance platform with a C# backend using Module Federation v2.",
     ],
   },
   {
     company: "Lightstream Software / Truist",
-    location: "California (Remote)",
     title: "Senior Application Developer",
     period: "2019 – 2021",
-    groups: [
-      {
-        label: "Engagement: Middle-Market Investment Bank",
-        bullets: [
-          "Developed and maintained a custom NPM component library for Kentico CMS, enabling the use of modern Angular components within a legacy C# Web Forms architecture.",
-          "Collaborated with marketing and design teams to translate Sketch and InVision wireframes into responsive Angular components, directly contributing to user experience improvements that increased user engagement metrics by 15%.",
-          "Engineered a full-stack user retention feature for the main MVC application, utilizing SQL Server stored procedures to capture and re-engage users who abandoned the registration process, leading to a 10% increase in completed signups.",
-          "Built and maintained automated UI test suites using Selenium and C#, and mentored junior developers on responsive design and testing best practices.",
-        ],
-      },
+    bullets: [
+      "Developed a reusable NPM component library bridging modern Angular components into a legacy C# Web Forms platform.",
+      "Engineered full-stack retention features increasing completed customer registrations by 10%.",
     ],
   },
   {
     company: "Datalink Software",
-    location: "Florida (Remote)",
     title: "Software Developer",
     period: "2017 – 2019",
-    groups: [
-      {
-        label: "Engagement: Healthcare Services",
-        bullets: [
-          "Led the successful migration of a hybrid healthcare application from AngularJS to Angular 6, designing and implementing responsive features that improved performance on mobile devices by 50%.",
-          "Developed new Angular 6 components to replace legacy implementations, collaborating with QA to track and resolve bugs, which resulted in a 25% decrease in user-reported issues post-release.",
-          "Conducted peer code reviews and mentored colleagues on Agile story point estimation, contributing to more accurate sprint planning and team velocity.",
-        ],
-      },
+    bullets: [
+      "Led migration of a hybrid healthcare application from AngularJS to Angular 6, improving mobile performance by 50%.",
     ],
   },
 ];
 
-
 const EDUCATION = [
   {
     school: "Coder Camps",
-    degree: "Full Stack Software Development — MEAN Stack (24 weeks)",
-    detail: "MongoDB · Express.js · AngularJS · Node.js",
+    degree: "Full Stack Software Development Program — M.E.A.N. Stack",
   },
   {
     school: "United States Air Force",
     degree: "Software Development Training",
-    detail: "Aircraft maintenance tracking data systems",
   },
 ];
 
@@ -153,6 +120,20 @@ function Bullet({ text }: { text: string }) {
   );
 }
 
+function ContactLink({ href, label, external = true }: { href: string; label: string; external?: boolean }) {
+  return (
+    <a
+      href={href}
+      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+      style={{ color: T.text.secondary, textDecoration: "none", transition: "color 0.2s" }}
+      onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)}
+      onMouseLeave={(e) => (e.currentTarget.style.color = T.text.secondary)}
+    >
+      {label}
+    </a>
+  );
+}
+
 function fadeUp(delay = 0) {
   return {
     initial: { opacity: 0, y: 16 },
@@ -162,20 +143,21 @@ function fadeUp(delay = 0) {
   };
 }
 
+const dot = <span style={{ color: T.border.mid, margin: "0 10px" }}>·</span>;
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function ResumePage() {
   return (
     <main style={{ minHeight: "100vh", background: T.bg.page }}>
-      {/* Dot grid */}
       <div style={{ position: "fixed", inset: 0, backgroundImage: `radial-gradient(rgba(0,212,255,0.028) 1px, transparent 1px)`, backgroundSize: "28px 28px", pointerEvents: "none", zIndex: 0 }} />
       <div style={{ position: "fixed", top: -200, left: "50%", transform: "translateX(-50%)", width: 700, height: 500, background: "radial-gradient(ellipse, rgba(0,212,255,0.04) 0%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
 
       <Nav
         backHref="/"
         links={[
-          { label: "GitHub ↗", href: "https://github.com/mattdavida", external: true },
-          { label: "Nexus ↗", href: NEXUS_PROFILE, external: true },
+          { label: "GitHub ↗",   href: "https://github.com/mattdavida", external: true },
+          { label: "Nexus ↗",    href: NEXUS_PROFILE, external: true },
           { label: "LinkedIn ↗", href: CONTACT.linkedin.href, external: true },
         ]}
       />
@@ -187,31 +169,31 @@ export default function ResumePage() {
           <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.45em", color: T.accent, marginBottom: 16, textTransform: "uppercase" }}>
             Résumé
           </p>
-          <h1 style={{ fontSize: "clamp(2.2rem, 5vw, 3.2rem)", fontWeight: 700, color: T.text.primary, letterSpacing: "-0.02em", lineHeight: 1.05, marginBottom: 12 }}>
+          <h1 style={{ fontSize: "clamp(2.2rem, 5vw, 3.2rem)", fontWeight: 700, color: T.text.primary, letterSpacing: "-0.02em", lineHeight: 1.05, marginBottom: 8 }}>
             Matthew Arvidson
           </h1>
-          <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", color: T.text.secondary, lineHeight: 1.9, marginBottom: 20 }}>
-            <a href={`mailto:${CONTACT.email}`} style={{ color: T.text.secondary, textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)} onMouseLeave={(e) => (e.currentTarget.style.color = T.text.secondary)}>{CONTACT.email}</a>
-            <span style={{ color: T.border.mid, margin: "0 10px" }}>·</span>
-            <a href={CONTACT.linkedin.href} target="_blank" rel="noreferrer" style={{ color: T.text.secondary, textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)} onMouseLeave={(e) => (e.currentTarget.style.color = T.text.secondary)}>{CONTACT.linkedin.label}</a>
-            <span style={{ color: T.border.mid, margin: "0 10px" }}>·</span>
-            <a href={CONTACT.github.href} target="_blank" rel="noreferrer" style={{ color: T.text.secondary, textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)} onMouseLeave={(e) => (e.currentTarget.style.color = T.text.secondary)}>{CONTACT.github.label}</a>
-            <span style={{ color: T.border.mid, margin: "0 10px" }}>·</span>
-            <a href={CONTACT.site.href} target="_blank" rel="noreferrer" style={{ color: T.text.secondary, textDecoration: "none", transition: "color 0.2s" }} onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)} onMouseLeave={(e) => (e.currentTarget.style.color = T.text.secondary)}>{CONTACT.site.label}</a>
+          <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.68rem", color: T.text.dim, letterSpacing: "0.04em", marginBottom: 16 }}>
+            Software Engineer · AI Platforms · Financial Systems Modernization · React / TypeScript / Enterprise Architecture
           </p>
-          <p style={{ fontSize: "0.75rem", fontFamily: "var(--font-geist-mono), monospace", color: T.text.dim, letterSpacing: "0.04em", lineHeight: 1.6 }}>
-            Senior Full-Stack Engineer · Financial Systems Modernization · React / TypeScript / Node.js / Python / C# / Java
+          <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", color: T.text.secondary, lineHeight: 2, marginBottom: 24, flexWrap: "wrap" }}>
+            Charlotte, NC
+            {dot}
+            <ContactLink href={`mailto:${CONTACT.email}`} label={CONTACT.email} external={false} />
+            {dot}
+            <ContactLink href={CONTACT.linkedin.href} label={CONTACT.linkedin.label} />
+            {dot}
+            <ContactLink href={CONTACT.github.href} label={CONTACT.github.label} />
+            {dot}
+            <ContactLink href={CONTACT.site.href} label={CONTACT.site.label} />
           </p>
-          <div style={{ marginTop: 28 }}>
-            <button
-              onClick={() => window.print()}
-              style={{ background: "transparent", border: `1px solid ${T.border.mid}`, outline: "none", cursor: "pointer", padding: "10px 28px", fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.68rem", letterSpacing: "0.3em", color: T.text.dim, transition: "border-color 0.2s, color 0.2s" }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = T.accent; e.currentTarget.style.color = T.accent; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = T.border.mid; e.currentTarget.style.color = T.text.dim; }}
-            >
-              DOWNLOAD PDF ↓
-            </button>
-          </div>
+          <button
+            onClick={() => window.print()}
+            style={{ background: "transparent", border: `1px solid ${T.border.mid}`, outline: "none", cursor: "pointer", padding: "10px 28px", fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.68rem", letterSpacing: "0.3em", color: T.text.dim, transition: "border-color 0.2s, color 0.2s" }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = T.accent; e.currentTarget.style.color = T.accent; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = T.border.mid; e.currentTarget.style.color = T.text.dim; }}
+          >
+            DOWNLOAD PDF ↓
+          </button>
         </motion.div>
 
         {/* ── Summary ── */}
@@ -225,7 +207,7 @@ export default function ResumePage() {
           <SectionHeader>Core Skills</SectionHeader>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {SKILLS.map((group) => (
-              <div key={group.label} style={{ display: "grid", gridTemplateColumns: "170px 1fr", gap: "0 20px", alignItems: "baseline" }}>
+              <div key={group.label} style={{ display: "grid", gridTemplateColumns: "140px 1fr", gap: "0 20px", alignItems: "baseline" }}>
                 <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.08em", color: T.text.dim }}>
                   {group.label}
                 </span>
@@ -250,28 +232,16 @@ export default function ResumePage() {
                 style={{ borderLeft: `1px solid ${T.border.subtle}`, paddingLeft: 24, position: "relative" }}
               >
                 <div style={{ position: "absolute", left: -4, top: 6, width: 7, height: 7, borderRadius: "50%", background: T.accent, boxShadow: `0 0 8px rgba(0,212,255,0.5)` }} />
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 4 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 12 }}>
                   <div>
                     <h2 style={{ fontSize: "1rem", fontWeight: 700, color: T.text.primary, marginBottom: 2 }}>{job.company}</h2>
                     <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", color: T.accent, letterSpacing: "0.04em" }}>{job.title}</p>
                   </div>
-                  <div style={{ textAlign: "right" }}>
-                    <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", color: T.text.dim, letterSpacing: "0.04em" }}>{job.period}</p>
-                    <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", color: T.text.secondary }}>{job.location}</p>
-                  </div>
+                  <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", color: T.text.dim, letterSpacing: "0.04em" }}>{job.period}</p>
                 </div>
-                <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 20 }}>
-                  {job.groups.map((group) => (
-                    <div key={group.label}>
-                      <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.06em", color: T.text.dim, marginBottom: 10 }}>
-                        — {group.label}
-                      </p>
-                      <ul style={{ padding: 0, margin: 0 }}>
-                        {group.bullets.map((b, i) => <Bullet key={i} text={b} />)}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
+                <ul style={{ padding: 0, margin: 0 }}>
+                  {job.bullets.map((b, i) => <Bullet key={i} text={b} />)}
+                </ul>
               </motion.div>
             ))}
           </div>
@@ -286,8 +256,7 @@ export default function ResumePage() {
                 <div style={{ width: 6, height: 6, borderRadius: "50%", background: T.bg.surface, border: `1px solid ${T.accent}`, flexShrink: 0, marginTop: 5 }} />
                 <div>
                   <p style={{ fontSize: "0.82rem", fontWeight: 600, color: T.text.primary, marginBottom: 2 }}>{edu.school}</p>
-                  <p style={{ fontSize: "0.75rem", color: T.text.body, marginBottom: 2 }}>{edu.degree}</p>
-                  <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", color: T.text.dim }}>{edu.detail}</p>
+                  <p style={{ fontSize: "0.75rem", color: T.text.body }}>{edu.degree}</p>
                 </div>
               </div>
             ))}
