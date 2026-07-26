@@ -195,13 +195,26 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               </span>
             )}
           </div>
-          <motion.span
-            style={{ fontFamily: "monospace", fontSize: "9px", fontWeight: 700, letterSpacing: "0.08em", padding: "2px 7px", borderRadius: 2, flexShrink: 0, color: langColor }}
-            animate={{ border: `1px solid ${langColor}`, opacity: hovered ? 1 : 0.65 }}
-            transition={{ duration: 0.2 }}
-          >
-            {project.lang}
-          </motion.span>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+            {project.notes && (
+              <a
+                href={project.notes}
+                onClick={(e) => e.stopPropagation()}
+                style={{ fontFamily: "monospace", fontSize: "9px", fontWeight: 700, letterSpacing: "0.08em", padding: "2px 7px", borderRadius: 2, color: T.accent, border: `1px solid rgba(0,212,255,0.35)`, textDecoration: "none", transition: "border-color 0.2s, background 0.2s" }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(0,212,255,0.08)"; e.currentTarget.style.borderColor = T.accent; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(0,212,255,0.35)"; }}
+              >
+                NOTES →
+              </a>
+            )}
+            <motion.span
+              style={{ fontFamily: "monospace", fontSize: "9px", fontWeight: 700, letterSpacing: "0.08em", padding: "2px 7px", borderRadius: 2, color: langColor }}
+              animate={{ border: `1px solid ${langColor}`, opacity: hovered ? 1 : 0.65 }}
+              transition={{ duration: 0.2 }}
+            >
+              {project.lang}
+            </motion.span>
+          </div>
         </div>
       </div>
     </motion.a>
