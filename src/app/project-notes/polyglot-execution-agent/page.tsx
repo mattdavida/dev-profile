@@ -3,8 +3,6 @@
 import { motion } from "framer-motion";
 import { T } from "@/lib/tokens";
 import Nav, { NAV_EXTERNAL_LINKS } from "@/components/Nav";
-import { NEXUS_PROFILE } from "@/data/projects";
-
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function fadeUp(delay = 0) {
@@ -168,7 +166,7 @@ export default function PolyglotExecutionAgentPage() {
             Execution desks face a problem that has two distinct halves. The strategic half — <em style={{ color: T.text.secondary }}>when</em> to trade, <em style={{ color: T.text.secondary }}>what algorithm</em> to use, <em style={{ color: T.text.secondary }}>how</em> to slice an order — involves qualitative reasoning under uncertainty. The quantitative half — exactly what that strategy will cost in slippage, fill price, and market impact — is deterministic math.
           </p>
           <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body, marginBottom: 20 }}>
-            LLMs are genuinely good at the first half. They reason about context, weigh tradeoffs, and adapt to natural language constraints like "macro catalyst" or "reduce duration before close." They are not good at the second half — they hallucinate numbers, and in a financial execution context, a hallucinated slippage estimate carries real dollar consequences.
+            LLMs are genuinely good at the first half. They reason about context, weigh tradeoffs, and adapt to natural language constraints like &ldquo;macro catalyst&rdquo; or &ldquo;reduce duration before close.&rdquo; They are not good at the second half — they hallucinate numbers, and in a financial execution context, a hallucinated slippage estimate carries real dollar consequences.
           </p>
           <Callout>
             The standard response to this is prompt engineering: tell the LLM not to calculate. This project takes a different position — that constraint should be architectural, not instructional. An LLM that is told not to compute slippage can still try. An LLM that does not have access to a limit order book cannot.
@@ -182,7 +180,7 @@ export default function PolyglotExecutionAgentPage() {
         <motion.section {...fadeUp(0.05)} style={{ marginBottom: 60 }}>
           <SectionHeader>How It Works</SectionHeader>
           <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body, marginBottom: 24 }}>
-            A trader submits a natural language request — "Liquidate 50,000 ZN contracts by EOD — factory delay news." The system routes that through a five-node LangGraph pipeline, pauses mid-execution for human review, and only dispatches on explicit approval.
+            A trader submits a natural language request — &ldquo;Liquidate 50,000 ZN contracts by EOD — factory delay news.&rdquo; The system routes that through a five-node LangGraph pipeline, pauses mid-execution for human review, and only dispatches on explicit approval.
           </p>
 
           <CodeBlock>{`Trader submits trade request
@@ -274,10 +272,10 @@ export default function PolyglotExecutionAgentPage() {
             2. Synchronous HITL — The interrupt() Decision
           </h3>
           <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body, marginBottom: 16 }}>
-            The original design used LangGraph's <code style={{ fontFamily: "monospace", color: T.accent, fontSize: "0.82rem" }}>interrupt_before=["hitl_node"]</code> at compile time, which stops the graph <em>before</em> a node runs. The shipped implementation uses <code style={{ fontFamily: "monospace", color: T.accent, fontSize: "0.82rem" }}>interrupt()</code> called <em>inside</em> the node. This is a deliberate divergence with a specific reason.
+            The original design used LangGraph&apos;s <code style={{ fontFamily: "monospace", color: T.accent, fontSize: "0.82rem" }}>interrupt_before=[&quot;hitl_node&quot;]</code> at compile time, which stops the graph <em>before</em> a node runs. The shipped implementation uses <code style={{ fontFamily: "monospace", color: T.accent, fontSize: "0.82rem" }}>interrupt()</code> called <em>inside</em> the node. This is a deliberate divergence with a specific reason.
           </p>
           <Callout>
-            interrupt_before stops before the node executes — meaning hitl_node never runs on the first pass, and has no opportunity to package the strategy and metrics into the feedback payload the frontend needs. interrupt() inside the node lets it run its first-pass logic, then pause. When resumed, interrupt() returns the trader's decision directly as its value, and the node completes normally.
+            interrupt_before stops before the node executes — meaning hitl_node never runs on the first pass, and has no opportunity to package the strategy and metrics into the feedback payload the frontend needs. interrupt() inside the node lets it run its first-pass logic, then pause. When resumed, interrupt() returns the trader&apos;s decision directly as its value, and the node completes normally.
           </Callout>
           <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body }}>
             The full graph state — including the LLM strategy and C++ metrics — serializes to SQLite at the interrupt point. The trader can be reviewing the panel for thirty seconds or thirty minutes. When they act, the graph resumes from the exact checkpoint. No polling loops, no shared mutable state, no race conditions.
