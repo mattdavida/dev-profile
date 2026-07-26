@@ -10,57 +10,232 @@ function fadeUp(delay = 0) {
     initial: { opacity: 0, y: 18 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true },
-    transition: { duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+    transition: {
+      duration: 0.5,
+      delay,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
   };
 }
 
 function SectionHeader({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
-      <span style={{ color: T.accent, fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.65rem", letterSpacing: "0.4em", textTransform: "uppercase" as const }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+        marginBottom: 28,
+      }}
+    >
+      <span
+        style={{
+          color: T.accent,
+          fontFamily: "var(--font-geist-mono), monospace",
+          fontSize: "0.65rem",
+          letterSpacing: "0.4em",
+          textTransform: "uppercase" as const,
+        }}
+      >
         {children}
       </span>
-      <div style={{ flex: 1, height: 1, background: `linear-gradient(to right, ${T.border.mid}, transparent)` }} />
+      <div
+        style={{
+          flex: 1,
+          height: 1,
+          background: `linear-gradient(to right, ${T.border.mid}, transparent)`,
+        }}
+      />
     </div>
   );
 }
 
 function Callout({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ borderLeft: `2px solid ${T.accent}`, paddingLeft: 20, margin: "28px 0", background: `${T.bg.surface}88`, padding: "16px 20px", borderRadius: "0 4px 4px 0" }}>
-      <p style={{ fontSize: "0.9rem", lineHeight: 1.8, color: T.text.body, fontStyle: "italic", margin: 0 }}>{children}</p>
+    <div
+      style={{
+        borderLeft: `2px solid ${T.accent}`,
+        paddingLeft: 20,
+        margin: "28px 0",
+        background: `${T.bg.surface}88`,
+        padding: "16px 20px",
+        borderRadius: "0 4px 4px 0",
+      }}
+    >
+      <p
+        style={{
+          fontSize: "0.9rem",
+          lineHeight: 1.8,
+          color: T.text.body,
+          fontStyle: "italic",
+          margin: 0,
+        }}
+      >
+        {children}
+      </p>
     </div>
   );
 }
 
-function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
+function Stat({
+  label,
+  value,
+  sub,
+}: {
+  label: string;
+  value: string;
+  sub?: string;
+}) {
   return (
-    <div style={{ flex: "1 1 140px", background: T.bg.card, border: `1px solid ${T.border.card}`, padding: "20px 24px", position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(to right, ${T.accent}44, transparent)` }} />
-      <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.6rem", letterSpacing: "0.35em", color: T.text.dim, textTransform: "uppercase" as const, marginBottom: 8 }}>{label}</p>
-      <p style={{ fontSize: "1.5rem", fontWeight: 700, color: T.text.primary, letterSpacing: "-0.02em", lineHeight: 1 }}>{value}</p>
-      {sub && <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.6rem", color: T.text.secondary, marginTop: 6 }}>{sub}</p>}
+    <div
+      style={{
+        flex: "1 1 140px",
+        background: T.bg.card,
+        border: `1px solid ${T.border.card}`,
+        padding: "20px 24px",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 1,
+          background: `linear-gradient(to right, ${T.accent}44, transparent)`,
+        }}
+      />
+      <p
+        style={{
+          fontFamily: "var(--font-geist-mono), monospace",
+          fontSize: "0.6rem",
+          letterSpacing: "0.35em",
+          color: T.text.dim,
+          textTransform: "uppercase" as const,
+          marginBottom: 8,
+        }}
+      >
+        {label}
+      </p>
+      <p
+        style={{
+          fontSize: "1.5rem",
+          fontWeight: 700,
+          color: T.text.primary,
+          letterSpacing: "-0.02em",
+          lineHeight: 1,
+        }}
+      >
+        {value}
+      </p>
+      {sub && (
+        <p
+          style={{
+            fontFamily: "var(--font-geist-mono), monospace",
+            fontSize: "0.6rem",
+            color: T.text.secondary,
+            marginTop: 6,
+          }}
+        >
+          {sub}
+        </p>
+      )}
     </div>
   );
 }
 
-function StackRow({ layer, tech, purpose }: { layer: string; tech: string; purpose: string }) {
+function StackRow({
+  layer,
+  tech,
+  purpose,
+}: {
+  layer: string;
+  tech: string;
+  purpose: string;
+}) {
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "120px 180px 1fr", gap: "0 20px", padding: "12px 0", borderBottom: `1px solid ${T.border.subtle}`, alignItems: "baseline" }}>
-      <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.62rem", color: T.text.dim, letterSpacing: "0.06em" }}>{layer}</span>
-      <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", color: T.accent }}>{tech}</span>
-      <span style={{ fontSize: "0.78rem", color: T.text.body, lineHeight: 1.6 }}>{purpose}</span>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "120px 180px 1fr",
+        gap: "0 20px",
+        padding: "12px 0",
+        borderBottom: `1px solid ${T.border.subtle}`,
+        alignItems: "baseline",
+      }}
+    >
+      <span
+        style={{
+          fontFamily: "var(--font-geist-mono), monospace",
+          fontSize: "0.62rem",
+          color: T.text.dim,
+          letterSpacing: "0.06em",
+        }}
+      >
+        {layer}
+      </span>
+      <span
+        style={{
+          fontFamily: "var(--font-geist-mono), monospace",
+          fontSize: "0.7rem",
+          color: T.accent,
+        }}
+      >
+        {tech}
+      </span>
+      <span
+        style={{ fontSize: "0.78rem", color: T.text.body, lineHeight: 1.6 }}
+      >
+        {purpose}
+      </span>
     </div>
   );
 }
 
-function DecisionRow({ decision, outcome }: { decision: string; outcome: string }) {
+function DecisionRow({
+  decision,
+  outcome,
+}: {
+  decision: string;
+  outcome: string;
+}) {
   return (
-    <div style={{ display: "flex", gap: 16, padding: "14px 0", borderBottom: `1px solid ${T.border.subtle}` }}>
-      <span style={{ color: T.accent, flexShrink: 0, fontSize: "0.65rem", marginTop: 3 }}>›</span>
+    <div
+      style={{
+        display: "flex",
+        gap: 16,
+        padding: "14px 0",
+        borderBottom: `1px solid ${T.border.subtle}`,
+      }}
+    >
+      <span
+        style={{
+          color: T.accent,
+          flexShrink: 0,
+          fontSize: "0.65rem",
+          marginTop: 3,
+        }}
+      >
+        ›
+      </span>
       <div>
-        <p style={{ fontSize: "0.8rem", fontWeight: 600, color: T.text.primary, marginBottom: 4 }}>{decision}</p>
-        <p style={{ fontSize: "0.76rem", color: T.text.body, lineHeight: 1.65 }}>{outcome}</p>
+        <p
+          style={{
+            fontSize: "0.8rem",
+            fontWeight: 600,
+            color: T.text.primary,
+            marginBottom: 4,
+          }}
+        >
+          {decision}
+        </p>
+        <p
+          style={{ fontSize: "0.76rem", color: T.text.body, lineHeight: 1.65 }}
+        >
+          {outcome}
+        </p>
       </div>
     </div>
   );
@@ -68,20 +243,31 @@ function DecisionRow({ decision, outcome }: { decision: string; outcome: string 
 
 function CodeBlock({ children }: { children: string }) {
   return (
-    <pre style={{
-      background: T.bg.card,
-      border: `1px solid ${T.border.card}`,
-      padding: "20px 24px",
-      borderRadius: 4,
-      overflowX: "auto",
-      fontSize: "0.72rem",
-      lineHeight: 1.7,
-      color: T.text.secondary,
-      fontFamily: "var(--font-geist-mono), monospace",
-      margin: "20px 0",
-      position: "relative",
-    }}>
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(to right, ${T.accent}33, transparent)` }} />
+    <pre
+      style={{
+        background: T.bg.card,
+        border: `1px solid ${T.border.card}`,
+        padding: "20px 24px",
+        borderRadius: 4,
+        overflowX: "auto",
+        fontSize: "0.72rem",
+        lineHeight: 1.7,
+        color: T.text.secondary,
+        fontFamily: "var(--font-geist-mono), monospace",
+        margin: "20px 0",
+        position: "relative",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 1,
+          background: `linear-gradient(to right, ${T.accent}33, transparent)`,
+        }}
+      />
       {children}
     </pre>
   );
@@ -93,8 +279,30 @@ export default function PolyglotExecutionAgentPage() {
   return (
     <main style={{ minHeight: "100vh", background: T.bg.page }}>
       {/* Background */}
-      <div style={{ position: "fixed", inset: 0, backgroundImage: `radial-gradient(rgba(0,212,255,0.025) 1px, transparent 1px)`, backgroundSize: "28px 28px", pointerEvents: "none", zIndex: 0 }} />
-      <div style={{ position: "fixed", top: -200, left: "50%", transform: "translateX(-50%)", width: 700, height: 500, background: "radial-gradient(ellipse, rgba(0,212,255,0.035) 0%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          backgroundImage: `radial-gradient(rgba(0,212,255,0.025) 1px, transparent 1px)`,
+          backgroundSize: "28px 28px",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+      <div
+        style={{
+          position: "fixed",
+          top: -200,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: 700,
+          height: 500,
+          background:
+            "radial-gradient(ellipse, rgba(0,212,255,0.035) 0%, transparent 70%)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
 
       <Nav
         backHref="/explore"
@@ -105,46 +313,155 @@ export default function PolyglotExecutionAgentPage() {
         ]}
       />
 
-      <div style={{ maxWidth: 820, margin: "0 auto", padding: "64px 32px 120px", position: "relative", zIndex: 1 }}>
-
+      <div
+        style={{
+          maxWidth: 820,
+          margin: "0 auto",
+          padding: "64px 32px 120px",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
         {/* ── Hero ── */}
         <motion.div {...fadeUp(0)} style={{ marginBottom: 64 }}>
-          <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.62rem", letterSpacing: "0.45em", color: T.accent, marginBottom: 16, textTransform: "uppercase" }}>
+          <p
+            style={{
+              fontFamily: "var(--font-geist-mono), monospace",
+              fontSize: "0.62rem",
+              letterSpacing: "0.45em",
+              color: T.accent,
+              marginBottom: 16,
+              textTransform: "uppercase",
+            }}
+          >
             Project Notes · AI & Fintech
           </p>
-          <h1 style={{ fontSize: "clamp(2rem, 5vw, 3rem)", fontWeight: 700, color: T.text.primary, letterSpacing: "-0.025em", lineHeight: 1.08, marginBottom: 16 }}>
+          <h1
+            style={{
+              fontSize: "clamp(2rem, 5vw, 3rem)",
+              fontWeight: 700,
+              color: T.text.primary,
+              letterSpacing: "-0.025em",
+              lineHeight: 1.08,
+              marginBottom: 16,
+            }}
+          >
             Polyglot Execution Agent
           </h1>
-          <p style={{ fontSize: "1.05rem", color: T.text.body, lineHeight: 1.75, marginBottom: 28, maxWidth: 640 }}>
-            Building safe AI systems for financial execution — where LangGraph orchestrates qualitative strategy and a C++20 order book engine computes the numbers, with a human trader in the loop before any order is dispatched.
+          <p
+            style={{
+              fontSize: "1.05rem",
+              color: T.text.body,
+              lineHeight: 1.75,
+              marginBottom: 28,
+              maxWidth: 640,
+            }}
+          >
+            Building safe AI systems for financial execution — where LangGraph
+            orchestrates qualitative strategy and a C++20 order book engine
+            computes the numbers, with a human trader in the loop before any
+            order is dispatched.
           </p>
 
           {/* Tags */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 32 }}>
-            {["LangGraph", "Azure OpenAI", "C++20", "pybind11", "FastAPI", "Next.js", "Azure Bicep", "Human-in-the-Loop"].map((tag) => (
-              <span key={tag} style={{ fontFamily: "monospace", fontSize: "0.68rem", padding: "3px 10px", background: T.bg.surface, color: T.text.secondary, border: `1px solid ${T.border.mid}`, borderRadius: 2 }}>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 8,
+              marginBottom: 32,
+            }}
+          >
+            {[
+              "LangGraph",
+              "Azure OpenAI",
+              "C++20",
+              "pybind11",
+              "FastAPI",
+              "Next.js",
+              "Azure Bicep",
+              "Human-in-the-Loop",
+            ].map((tag) => (
+              <span
+                key={tag}
+                style={{
+                  fontFamily: "monospace",
+                  fontSize: "0.68rem",
+                  padding: "3px 10px",
+                  background: T.bg.surface,
+                  color: T.text.secondary,
+                  border: `1px solid ${T.border.mid}`,
+                  borderRadius: 2,
+                }}
+              >
                 {tag}
               </span>
             ))}
           </div>
 
+          {/* POC disclaimer */}
+          <p
+            style={{
+              fontFamily: "var(--font-geist-mono), monospace",
+              fontSize: "0.62rem",
+              color: T.text.dim,
+              letterSpacing: "0.05em",
+              marginBottom: 24,
+            }}
+          >
+            Proof of concept — not connected to any live trading system or order
+            management system.
+          </p>
+
           {/* Links */}
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <a
               href="https://github.com/matthew-arvidson/polyglot-execution-agent"
-              target="_blank" rel="noreferrer"
-              style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.68rem", letterSpacing: "0.12em", color: T.text.dim, border: `1px solid ${T.border.mid}`, padding: "8px 20px", textDecoration: "none", transition: "border-color 0.2s, color 0.2s" }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = T.accent; e.currentTarget.style.color = T.accent; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = T.border.mid; e.currentTarget.style.color = T.text.dim; }}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: "0.68rem",
+                letterSpacing: "0.12em",
+                color: T.text.dim,
+                border: `1px solid ${T.border.mid}`,
+                padding: "8px 20px",
+                textDecoration: "none",
+                transition: "border-color 0.2s, color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = T.accent;
+                e.currentTarget.style.color = T.accent;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = T.border.mid;
+                e.currentTarget.style.color = T.text.dim;
+              }}
             >
               GitHub ↗
             </a>
             <a
               href="https://github.com/matthew-arvidson/polyglot-execution-agent/blob/main/ARCHITECTURE.md"
-              target="_blank" rel="noreferrer"
-              style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.68rem", letterSpacing: "0.12em", color: T.text.dim, border: `1px solid ${T.border.mid}`, padding: "8px 20px", textDecoration: "none", transition: "border-color 0.2s, color 0.2s" }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = T.accent; e.currentTarget.style.color = T.accent; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = T.border.mid; e.currentTarget.style.color = T.text.dim; }}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: "0.68rem",
+                letterSpacing: "0.12em",
+                color: T.text.dim,
+                border: `1px solid ${T.border.mid}`,
+                padding: "8px 20px",
+                textDecoration: "none",
+                transition: "border-color 0.2s, color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = T.accent;
+                e.currentTarget.style.color = T.accent;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = T.border.mid;
+                e.currentTarget.style.color = T.text.dim;
+              }}
             >
               Architecture Doc ↗
             </a>
@@ -152,35 +469,106 @@ export default function PolyglotExecutionAgentPage() {
         </motion.div>
 
         {/* ── Stats ── */}
-        <motion.div {...fadeUp(0.05)} style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 72 }}>
-          <Stat label="C++ LOB Latency" value="0.6 µs" sub="p50 · 100k iterations" />
+        <motion.div
+          {...fadeUp(0.05)}
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 12,
+            marginBottom: 72,
+          }}
+        >
+          <Stat
+            label="C++ LOB Latency"
+            value="0.6 µs"
+            sub="p50 · 100k iterations"
+          />
           <Stat label="Heap Allocations" value="0" sub="On the C++ hot path" />
-          <Stat label="Phases Complete" value="5 / 6" sub="All core phases shipped" />
-          <Stat label="Market Data" value="58,632" sub="Real Bloomberg ZN ticks" />
+          <Stat
+            label="Phases Complete"
+            value="6 / 7"
+            sub="Phase 6 (SSE + Docker) pending"
+          />
+          <Stat
+            label="Market Data"
+            value="58,632"
+            sub="Real Bloomberg ZN ticks"
+          />
         </motion.div>
 
         {/* ── The Problem ── */}
         <motion.section {...fadeUp(0.05)} style={{ marginBottom: 60 }}>
           <SectionHeader>The Problem</SectionHeader>
-          <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body, marginBottom: 20 }}>
-            Execution desks face a problem that has two distinct halves. The strategic half — <em style={{ color: T.text.secondary }}>when</em> to trade, <em style={{ color: T.text.secondary }}>what algorithm</em> to use, <em style={{ color: T.text.secondary }}>how</em> to slice an order — involves qualitative reasoning under uncertainty. The quantitative half — exactly what that strategy will cost in slippage, fill price, and market impact — is deterministic math.
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+              marginBottom: 20,
+            }}
+          >
+            Execution desks face a problem that has two distinct halves. The
+            strategic half — <em style={{ color: T.text.secondary }}>when</em>{" "}
+            to trade,{" "}
+            <em style={{ color: T.text.secondary }}>what algorithm</em> to use,{" "}
+            <em style={{ color: T.text.secondary }}>how</em> to slice an order —
+            involves qualitative reasoning under uncertainty. The quantitative
+            half — exactly what that strategy will cost in slippage, fill price,
+            and market impact — is deterministic math.
           </p>
-          <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body, marginBottom: 20 }}>
-            LLMs are genuinely good at the first half. They reason about context, weigh tradeoffs, and adapt to natural language constraints like &ldquo;macro catalyst&rdquo; or &ldquo;reduce duration before close.&rdquo; They are not good at the second half — they hallucinate numbers, and in a financial execution context, a hallucinated slippage estimate carries real dollar consequences.
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+              marginBottom: 20,
+            }}
+          >
+            LLMs are genuinely good at the first half. They reason about
+            context, weigh tradeoffs, and adapt to natural language constraints
+            like &ldquo;macro catalyst&rdquo; or &ldquo;reduce duration before
+            close.&rdquo; They are not good at the second half — they
+            hallucinate numbers, and in a financial execution context, a
+            hallucinated slippage estimate carries real dollar consequences.
           </p>
           <Callout>
-            The standard response to this is prompt engineering: tell the LLM not to calculate. This project takes a different position — that constraint should be architectural, not instructional. An LLM that is told not to compute slippage can still try. An LLM that does not have access to a limit order book cannot.
+            The standard response to this is prompt engineering: tell the LLM
+            not to calculate. This project takes a different position — that
+            constraint should be architectural, not instructional. An LLM that
+            is told not to compute slippage can still try. An LLM that does not
+            have access to a limit order book cannot.
           </Callout>
-          <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body }}>
-            This is what the Polyglot Execution Agent demonstrates: a production-inspired architecture where the LLM decides strategy, a C++20 limit order book engine computes the consequences of that strategy, and a human trader reviews both before a single order is dispatched.
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+            }}
+          >
+            This is what the Polyglot Execution Agent demonstrates: a
+            production-inspired architecture where the LLM decides strategy, a
+            C++20 limit order book engine computes the consequences of that
+            strategy, and a human trader reviews both before a single order is
+            dispatched.
           </p>
         </motion.section>
 
         {/* ── How It Works ── */}
         <motion.section {...fadeUp(0.05)} style={{ marginBottom: 60 }}>
           <SectionHeader>How It Works</SectionHeader>
-          <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body, marginBottom: 24 }}>
-            A trader submits a natural language request — &ldquo;Liquidate 50,000 ZN contracts by EOD — factory delay news.&rdquo; The system routes that through a five-node LangGraph pipeline, pauses mid-execution for human review, and only dispatches on explicit approval.
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+              marginBottom: 24,
+            }}
+          >
+            A trader submits a natural language request — &ldquo;Liquidate
+            50,000 ZN contracts by EOD — factory delay news.&rdquo; The system
+            routes that through a four-node LangGraph pipeline, pauses
+            mid-execution for human review, and only dispatches on explicit
+            approval.
           </p>
 
           <CodeBlock>{`Trader submits trade request
@@ -201,30 +589,82 @@ export default function PolyglotExecutionAgentPage() {
   execution_node   simulation_node      END
   log + write JSON (re-run C++ sweep)`}</CodeBlock>
 
-          <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body, marginBottom: 16 }}>
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+              marginBottom: 16,
+            }}
+          >
             Three actions are available to the trader at the HITL panel:
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-            <DecisionRow decision="Approve" outcome="The graph resumes at execution_node, logs the trade, and writes a JSON record with the full thread_id, LLM strategy, C++ metrics, and timestamp to output/ for auditability." />
-            <DecisionRow decision="Modify" outcome="The trader overrides slice parameters — more slices, smaller size per slice — and triggers a C++ re-simulation. The graph resumes at simulation_node with the new parameters, sweeps the same order book again, and pauses at the HITL panel a second time with updated slippage numbers." />
-            <DecisionRow decision="Abort" outcome="The graph routes to the terminal node. No order is dispatched. The full graph state — including the LLM strategy and C++ metrics computed before the abort — remains in SQLite for post-trade audit." />
+            <DecisionRow
+              decision="Approve"
+              outcome="The graph resumes at execution_node, logs the trade, and writes a JSON record with the full thread_id, LLM strategy, C++ metrics, and timestamp to output/ for auditability."
+            />
+            <DecisionRow
+              decision="Modify"
+              outcome="The trader overrides slice parameters — more slices, smaller size per slice — and triggers a C++ re-simulation. The graph resumes at simulation_node with the new parameters, sweeps the same order book again, and pauses at the HITL panel a second time with updated slippage numbers."
+            />
+            <DecisionRow
+              decision="Abort"
+              outcome="The graph routes to the terminal node. No order is dispatched. The full graph state — including the LLM strategy and C++ metrics computed before the abort — remains in SQLite for post-trade audit."
+            />
           </div>
         </motion.section>
 
         {/* ── The Architecture ── */}
         <motion.section {...fadeUp(0.05)} style={{ marginBottom: 60 }}>
           <SectionHeader>The Architecture</SectionHeader>
-          <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body, marginBottom: 24 }}>
-            The stack is intentionally polyglot. Each layer is chosen for what it is best at, not for uniformity.
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+              marginBottom: 24,
+            }}
+          >
+            The stack is intentionally polyglot. Each layer is chosen for what
+            it is best at, not for uniformity.
           </p>
           <div style={{ borderTop: `1px solid ${T.border.subtle}` }}>
-            <StackRow layer="Orchestration" tech="LangGraph + Azure OpenAI" purpose="StateGraph with SqliteSaver checkpointer. Owns strategy formulation, graph routing, and the synchronous HITL pause via interrupt()." />
-            <StackRow layer="Compute Core" tech="C++20 + pybind11" purpose="Pre-allocated limit order book. Zero heap allocation on the hot path. GIL released for native thread execution. p50 = 0.6 µs across 100k iterations." />
-            <StackRow layer="API Layer" tech="FastAPI + Uvicorn" purpose="Three routes: POST /api/trade (start graph), GET /api/trade/{id} (poll paused state), POST /api/resume/{id} (resume with trader decision)." />
-            <StackRow layer="Frontend" tech="Next.js 16 + DaisyUI" purpose="Trader dashboard. Strategy card (LLM output) and metrics card (C++ output) rendered side by side in the HITL review panel." />
-            <StackRow layer="State Persistence" tech="SQLite (SqliteSaver)" purpose="Required for synchronous HITL — the full graph state serializes to disk between interrupt() and resume. Zero config, single file, one-line swap to Postgres." />
-            <StackRow layer="Market Data" tech="Bloomberg ZN ticks" purpose="58,632 rows of real L2 order book data from 2016-12-23. Reconstructed via time-windowed accumulation. Produces non-trivial, real slippage numbers." />
-            <StackRow layer="Infrastructure" tech="Azure Bicep" purpose="Fully repeatable one-command deployment. OpenAI resource, Key Vault, App Service. No manual portal steps." />
+            <StackRow
+              layer="Orchestration"
+              tech="LangGraph + Azure OpenAI"
+              purpose="StateGraph with SqliteSaver checkpointer. Owns strategy formulation, graph routing, and the synchronous HITL pause via interrupt()."
+            />
+            <StackRow
+              layer="Compute Core"
+              tech="C++20 + pybind11"
+              purpose="Pre-allocated limit order book. Zero heap allocation on the hot path. GIL released for native thread execution. p50 = 0.6 µs across 100k iterations."
+            />
+            <StackRow
+              layer="API Layer"
+              tech="FastAPI + Uvicorn"
+              purpose="Three routes: POST /api/trade (start graph), GET /api/trade/{id} (poll paused state), POST /api/resume/{id} (resume with trader decision)."
+            />
+            <StackRow
+              layer="Frontend"
+              tech="Next.js 16 + DaisyUI"
+              purpose="Trader dashboard. Strategy card (LLM output) and metrics card (C++ output) rendered side by side in the HITL review panel."
+            />
+            <StackRow
+              layer="State Persistence"
+              tech="SQLite (SqliteSaver)"
+              purpose="Required for synchronous HITL — the full graph state serializes to disk between interrupt() and resume. Zero config, single file, one-line swap to Postgres."
+            />
+            <StackRow
+              layer="Market Data"
+              tech="Bloomberg ZN ticks"
+              purpose="58,632 rows of real L2 order book data from 2016-12-23. Reconstructed via time-windowed accumulation. Produces non-trivial, real slippage numbers."
+            />
+            <StackRow
+              layer="Infrastructure"
+              tech="Azure Bicep"
+              purpose="Fully repeatable one-command deployment. OpenAI resource, Key Vault, App Service. No manual portal steps."
+            />
           </div>
         </motion.section>
 
@@ -232,18 +672,58 @@ export default function PolyglotExecutionAgentPage() {
         <motion.section {...fadeUp(0.05)} style={{ marginBottom: 60 }}>
           <SectionHeader>The Hard Parts</SectionHeader>
 
-          <h3 style={{ fontSize: "0.95rem", fontWeight: 600, color: T.text.primary, marginBottom: 12, marginTop: 0 }}>
+          <h3
+            style={{
+              fontSize: "0.95rem",
+              fontWeight: 600,
+              color: T.text.primary,
+              marginBottom: 12,
+              marginTop: 0,
+            }}
+          >
             1. The C++20 LOB Engine
           </h3>
-          <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body, marginBottom: 16 }}>
-            The order book engine is the architectural centrepiece. Every design constraint is deliberate — this is what a production-grade HFT-style LOB engine looks like at the boundary with a Python orchestration layer.
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+              marginBottom: 16,
+            }}
+          >
+            The order book engine is the architectural centrepiece. Every design
+            constraint is deliberate — this is what a production-grade HFT-style
+            LOB engine looks like at the boundary with a Python orchestration
+            layer.
           </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 0, marginBottom: 24 }}>
-            <DecisionRow decision="Zero allocation on hot path" outcome="Pre-allocated std::array<PriceLevel, MAX_LEVELS> — no new, no malloc inside simulate(). The hot path never touches the heap." />
-            <DecisionRow decision="Intrusive data structure" outcome="PriceLevel.next_idx is an int index, not a pointer. CPU cache-friendly traversal. The standard HFT intrusive-list idiom — unambiguous in a debugger." />
-            <DecisionRow decision="noexcept hot path" outcome="simulate() is [[nodiscard]] noexcept — no exception overhead in the sweep loop. The compiler can generate tighter code." />
-            <DecisionRow decision="GIL release" outcome="py::call_guard<py::gil_scoped_release>() on simulate() — concurrent simulations run in parallel native threads. The Python interpreter is not involved during computation." />
-            <DecisionRow decision="std::span for views" outcome="Array access via std::span<const PriceLevel> — bounds-safe, zero overhead. Modern C++ without the cost." />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 0,
+              marginBottom: 24,
+            }}
+          >
+            <DecisionRow
+              decision="Zero allocation on hot path"
+              outcome="The engine never pauses to request more memory from the OS while it is calculating — every price level slot is reserved upfront. Technically: pre-allocated std::array<PriceLevel, MAX_LEVELS> — no new, no malloc inside simulate()."
+            />
+            <DecisionRow
+              decision="Intrusive data structure"
+              outcome="Price levels are stored in a flat array, not scattered across memory — the CPU reads them sequentially without cache misses. Technically: PriceLevel.next_idx is an int index, not a pointer — the standard HFT intrusive-list idiom."
+            />
+            <DecisionRow
+              decision="noexcept hot path"
+              outcome="No exception-handling scaffolding in the sweep loop — the compiler generates tighter machine code. Technically: simulate() is [[nodiscard]] noexcept."
+            />
+            <DecisionRow
+              decision="GIL release"
+              outcome="Python's global interpreter lock is released during the C++ computation — multiple simulations can run in parallel native threads without the Python runtime as a bottleneck. Technically: py::call_guard<py::gil_scoped_release>() on simulate()."
+            />
+            <DecisionRow
+              decision="std::span for views"
+              outcome="Safe array access without runtime overhead — bounds-checked in debug builds, zero-cost in release. Technically: std::span<const PriceLevel> — modern C++ without the cost."
+            />
           </div>
 
           <CodeBlock>{`// The sweep loop — zero allocation, intrusive list traversal
@@ -268,27 +748,109 @@ export default function PolyglotExecutionAgentPage() {
     // ... slippage math, latency capture
 }`}</CodeBlock>
 
-          <h3 style={{ fontSize: "0.95rem", fontWeight: 600, color: T.text.primary, marginBottom: 12, marginTop: 32 }}>
+          <h3
+            style={{
+              fontSize: "0.95rem",
+              fontWeight: 600,
+              color: T.text.primary,
+              marginBottom: 12,
+              marginTop: 32,
+            }}
+          >
             2. Synchronous HITL — The interrupt() Decision
           </h3>
-          <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body, marginBottom: 16 }}>
-            The original design used LangGraph&apos;s <code style={{ fontFamily: "monospace", color: T.accent, fontSize: "0.82rem" }}>interrupt_before=[&quot;hitl_node&quot;]</code> at compile time, which stops the graph <em>before</em> a node runs. The shipped implementation uses <code style={{ fontFamily: "monospace", color: T.accent, fontSize: "0.82rem" }}>interrupt()</code> called <em>inside</em> the node. This is a deliberate divergence with a specific reason.
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+              marginBottom: 16,
+            }}
+          >
+            The original design used LangGraph&apos;s{" "}
+            <code
+              style={{
+                fontFamily: "monospace",
+                color: T.accent,
+                fontSize: "0.82rem",
+              }}
+            >
+              interrupt_before=[&quot;hitl_node&quot;]
+            </code>{" "}
+            at compile time, which stops the graph <em>before</em> a node runs.
+            The shipped implementation uses{" "}
+            <code
+              style={{
+                fontFamily: "monospace",
+                color: T.accent,
+                fontSize: "0.82rem",
+              }}
+            >
+              interrupt()
+            </code>{" "}
+            called <em>inside</em> the node. This is a deliberate divergence
+            with a specific reason.
           </p>
           <Callout>
-            interrupt_before stops before the node executes — meaning hitl_node never runs on the first pass, and has no opportunity to package the strategy and metrics into the feedback payload the frontend needs. interrupt() inside the node lets it run its first-pass logic, then pause. When resumed, interrupt() returns the trader&apos;s decision directly as its value, and the node completes normally.
+            interrupt_before stops before the node executes — meaning hitl_node
+            never runs on the first pass, and has no opportunity to package the
+            strategy and metrics into the feedback payload the frontend needs.
+            interrupt() inside the node lets it run its first-pass logic, then
+            pause. When resumed, interrupt() returns the trader&apos;s decision
+            directly as its value, and the node completes normally.
           </Callout>
-          <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body }}>
-            The full graph state — including the LLM strategy and C++ metrics — serializes to SQLite at the interrupt point. The trader can be reviewing the panel for thirty seconds or thirty minutes. When they act, the graph resumes from the exact checkpoint. No polling loops, no shared mutable state, no race conditions.
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+            }}
+          >
+            The full graph state — including the LLM strategy and C++ metrics —
+            serializes to SQLite at the interrupt point. The trader can be
+            reviewing the panel for thirty seconds or thirty minutes. When they
+            act, the graph resumes from the exact checkpoint. No polling loops,
+            no shared mutable state, no race conditions.
           </p>
 
-          <h3 style={{ fontSize: "0.95rem", fontWeight: 600, color: T.text.primary, marginBottom: 12, marginTop: 32 }}>
+          <h3
+            style={{
+              fontSize: "0.95rem",
+              fontWeight: 600,
+              color: T.text.primary,
+              marginBottom: 12,
+              marginTop: 32,
+            }}
+          >
             3. Real Market Data
           </h3>
-          <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body, marginBottom: 16 }}>
-            The LOB is populated from a real Bloomberg tick file for ZN (10-Year Treasury Note Futures, CME Globex) dated 2016-12-23 — 58,632 rows of trade, bid, and ask ticks. A dummy symmetric order book would produce trivially round slippage numbers that look synthetic. Real data produces irregular depth and non-trivial results.
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+              marginBottom: 16,
+            }}
+          >
+            The LOB is populated from a real Bloomberg tick file for ZN (10-Year
+            Treasury Note Futures, CME Globex) dated 2016-12-23 — 58,632 rows of
+            trade, bid, and ask ticks. A dummy symmetric order book would
+            produce trivially round slippage numbers that look synthetic. Real
+            data produces irregular depth and non-trivial results.
           </p>
-          <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body }}>
-            ZN 2016-12-23 is a locked market throughout the session (best bid = best ask — a valid real condition in highly liquid CME futures). Slippage of 1.4–2.0 bps on a 50–200 contract order comes from sweeping through multiple depth levels at different prices, not from the spread itself. This is the realistic, non-trivial result that makes the demo credible.
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+            }}
+          >
+            ZN 2016-12-23 is a locked market throughout the session (best bid =
+            best ask — a valid real condition in highly liquid CME futures).
+            Slippage of 1.4–2.0 bps on a 50–200 contract order comes from
+            sweeping through multiple depth levels at different prices, not from
+            the spread itself. This is the realistic, non-trivial result that
+            makes the demo credible.
           </p>
         </motion.section>
 
@@ -302,18 +864,55 @@ export default function PolyglotExecutionAgentPage() {
                 body: "Probabilistic reasoning is where LLMs excel — algorithm selection, qualitative judgment, natural language context. Deterministic computation belongs in native code. Mixing the two produces systems that are neither correct nor fast.",
               },
               {
-                heading: "Architectural boundaries are safer than prompt engineering.",
+                heading:
+                  "Architectural boundaries are safer than prompt engineering.",
                 body: "The LLM in this system cannot compute slippage — not because it is told not to, but because the computation runs in a different language on a different runtime with no shared state. The constraint is structural. A future model update or a jailbreak attempt cannot override it.",
               },
               {
-                heading: "Human-in-the-loop should be an architectural checkpoint, not a UI afterthought.",
+                heading:
+                  "Human-in-the-loop should be an architectural checkpoint, not a UI afterthought.",
                 body: "LangGraph's interrupt() + SqliteSaver checkpointer makes the HITL pause a first-class graph primitive — the full execution state serializes to disk and resumes deterministically. This is the right abstraction for financial systems where a human approval is a compliance requirement, not a convenience feature.",
               },
             ].map((item) => (
-              <div key={item.heading} style={{ borderLeft: `1px solid ${T.border.subtle}`, paddingLeft: 24, position: "relative" }}>
-                <div style={{ position: "absolute", left: -4, top: 6, width: 7, height: 7, borderRadius: "50%", background: T.accent, boxShadow: `0 0 8px rgba(0,212,255,0.5)` }} />
-                <p style={{ fontSize: "0.85rem", fontWeight: 600, color: T.text.primary, marginBottom: 8 }}>{item.heading}</p>
-                <p style={{ fontSize: "0.8rem", lineHeight: 1.75, color: T.text.body }}>{item.body}</p>
+              <div
+                key={item.heading}
+                style={{
+                  borderLeft: `1px solid ${T.border.subtle}`,
+                  paddingLeft: 24,
+                  position: "relative",
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    left: -4,
+                    top: 6,
+                    width: 7,
+                    height: 7,
+                    borderRadius: "50%",
+                    background: T.accent,
+                    boxShadow: `0 0 8px rgba(0,212,255,0.5)`,
+                  }}
+                />
+                <p
+                  style={{
+                    fontSize: "0.85rem",
+                    fontWeight: 600,
+                    color: T.text.primary,
+                    marginBottom: 8,
+                  }}
+                >
+                  {item.heading}
+                </p>
+                <p
+                  style={{
+                    fontSize: "0.8rem",
+                    lineHeight: 1.75,
+                    color: T.text.body,
+                  }}
+                >
+                  {item.body}
+                </p>
               </div>
             ))}
           </div>
@@ -322,46 +921,135 @@ export default function PolyglotExecutionAgentPage() {
         {/* ── Roadmap ── */}
         <motion.section {...fadeUp(0.05)} style={{ marginBottom: 72 }}>
           <SectionHeader>What&apos;s Next</SectionHeader>
-          <p style={{ fontSize: "0.88rem", lineHeight: 1.85, color: T.text.body, marginBottom: 20 }}>
-            Phase 6 is scoped and ready. The core architecture is complete — these are additive improvements that make the system more compelling as a live demo.
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+              marginBottom: 20,
+            }}
+          >
+            Phase 6 is scoped and ready. The core architecture is complete —
+            these are additive improvements that make the system more compelling
+            as a live demo.
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-            <DecisionRow decision="SSE streaming" outcome="Stream LLM reasoning tokens to the HITL panel in real time as strategy_node runs. The trader watches the LLM think before the metrics arrive." />
-            <DecisionRow decision="Live market data" outcome="Replace the CSV snapshot with a Kafka consumer feeding the LOB in real time — using the same pattern as the 3forge-kafka-minimal integration work." />
-            <DecisionRow decision="L2 book depth display" outcome="Show the order book ladder in the HITL panel so the trader sees exactly which levels the C++ engine swept — the simulation made visible." />
-            <DecisionRow decision="Docker + Linux" outcome="Cross-compile the C++ pybind11 module for Linux App Service. Currently Windows MSVC only — packaging for cross-platform deployment is the remaining infrastructure gap." />
+            <DecisionRow
+              decision="SSE streaming"
+              outcome="Stream LLM reasoning tokens to the HITL panel in real time as strategy_node runs. The trader watches the LLM think before the metrics arrive."
+            />
+            <DecisionRow
+              decision="Live market data"
+              outcome="Replace the CSV snapshot with a Kafka consumer feeding the LOB in real time — using the same pattern as the 3forge-kafka-minimal integration work."
+            />
+            <DecisionRow
+              decision="L2 book depth display"
+              outcome="Show the order book ladder in the HITL panel so the trader sees exactly which levels the C++ engine swept — the simulation made visible."
+            />
+            <DecisionRow
+              decision="Docker + Linux"
+              outcome="Cross-compile the C++ pybind11 module for Linux App Service. Currently Windows MSVC only — packaging for cross-platform deployment is the remaining infrastructure gap."
+            />
           </div>
         </motion.section>
 
         {/* ── Footer CTA ── */}
-        <motion.div {...fadeUp(0.05)} style={{ borderTop: `1px solid ${T.border.subtle}`, paddingTop: 40, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20 }}>
+        <motion.div
+          {...fadeUp(0.05)}
+          style={{
+            borderTop: `1px solid ${T.border.subtle}`,
+            paddingTop: 40,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: 20,
+          }}
+        >
           <div>
-            <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.62rem", letterSpacing: "0.35em", color: T.text.dim, textTransform: "uppercase", marginBottom: 6 }}>Explore more</p>
-            <a href="/explore" style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.72rem", color: T.text.secondary, textDecoration: "none", letterSpacing: "0.08em", transition: "color 0.2s" }}
+            <p
+              style={{
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: "0.62rem",
+                letterSpacing: "0.35em",
+                color: T.text.dim,
+                textTransform: "uppercase",
+                marginBottom: 6,
+              }}
+            >
+              Explore more
+            </p>
+            <a
+              href="/explore"
+              style={{
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: "0.72rem",
+                color: T.text.secondary,
+                textDecoration: "none",
+                letterSpacing: "0.08em",
+                transition: "color 0.2s",
+              }}
               onMouseEnter={(e) => (e.currentTarget.style.color = T.accent)}
-              onMouseLeave={(e) => (e.currentTarget.style.color = T.text.secondary)}
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = T.text.secondary)
+              }
             >
               ← All projects
             </a>
           </div>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <a href="https://github.com/matthew-arvidson/polyglot-execution-agent" target="_blank" rel="noreferrer"
-              style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.68rem", letterSpacing: "0.12em", color: T.text.dim, border: `1px solid ${T.border.mid}`, padding: "10px 24px", textDecoration: "none", transition: "border-color 0.2s, color 0.2s" }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = T.accent; e.currentTarget.style.color = T.accent; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = T.border.mid; e.currentTarget.style.color = T.text.dim; }}
+            <a
+              href="https://github.com/mattdavida/polyglot-execution-agent"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: "0.68rem",
+                letterSpacing: "0.12em",
+                color: T.text.dim,
+                border: `1px solid ${T.border.mid}`,
+                padding: "10px 24px",
+                textDecoration: "none",
+                transition: "border-color 0.2s, color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = T.accent;
+                e.currentTarget.style.color = T.accent;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = T.border.mid;
+                e.currentTarget.style.color = T.text.dim;
+              }}
             >
               View on GitHub ↗
             </a>
-            <a href="https://github.com/matthew-arvidson/polyglot-execution-agent/blob/main/ARCHITECTURE.md" target="_blank" rel="noreferrer"
-              style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.68rem", letterSpacing: "0.12em", color: T.text.dim, border: `1px solid ${T.border.mid}`, padding: "10px 24px", textDecoration: "none", transition: "border-color 0.2s, color 0.2s" }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = T.accent; e.currentTarget.style.color = T.accent; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = T.border.mid; e.currentTarget.style.color = T.text.dim; }}
+            <a
+              href="https://github.com/mattdavida/polyglot-execution-agent/blob/main/ARCHITECTURE.md"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: "0.68rem",
+                letterSpacing: "0.12em",
+                color: T.text.dim,
+                border: `1px solid ${T.border.mid}`,
+                padding: "10px 24px",
+                textDecoration: "none",
+                transition: "border-color 0.2s, color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = T.accent;
+                e.currentTarget.style.color = T.accent;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = T.border.mid;
+                e.currentTarget.style.color = T.text.dim;
+              }}
             >
               Architecture Doc ↗
             </a>
           </div>
         </motion.div>
-
       </div>
 
       <style>{`
