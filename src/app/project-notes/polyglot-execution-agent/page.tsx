@@ -416,7 +416,7 @@ export default function PolyglotExecutionAgentPage() {
           {/* Links */}
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <a
-              href="https://github.com/matthew-arvidson/polyglot-execution-agent"
+              href="https://github.com/mattdavida/polyglot-execution-agent"
               target="_blank"
               rel="noreferrer"
               style={{
@@ -441,7 +441,7 @@ export default function PolyglotExecutionAgentPage() {
               GitHub ↗
             </a>
             <a
-              href="https://github.com/matthew-arvidson/polyglot-execution-agent/blob/main/ARCHITECTURE.md"
+              href="https://github.com/mattdavida/polyglot-execution-agent/blob/main/ARCHITECTURE.md"
               target="_blank"
               rel="noreferrer"
               style={{
