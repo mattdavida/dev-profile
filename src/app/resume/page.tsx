@@ -14,7 +14,7 @@ const CONTACT = {
 };
 
 const SUMMARY =
-  "Software Engineer embedded within Tier 1 investment banks, specializing in bridging enterprise LLMs with modern user experiences and highly regulated financial systems. Proven track record architecting enterprise AI orchestration pipelines and React-based micro-frontends. Technical leader who partners directly with business stakeholders to modernize multi-billion-dollar legacy platforms into interactive, human-in-the-loop workflows with end-to-end compliance traceability.";
+  "Senior Software Engineer specializing in modernizing Tier 1 investment bank platforms through enterprise AI, modern front-end architecture, and highly regulated financial systems. Proven track record architecting polyglot AI orchestration pipelines, React-based micro-frontends, and human-in-the-loop workflows with end-to-end compliance traceability.";
 
 const SKILLS = [
   {
@@ -23,7 +23,7 @@ const SKILLS = [
   },
   {
     label: "Capital Markets",
-    items: ["3forge AMI", "ISDA CDM", "FpML", "Syndicated Lending", "CFTC/EMIR"],
+    items: ["3forge AMI", "ISDA CDM", "FpML", "Syndicated Lending"],
   },
   {
     label: "Front End",
@@ -31,7 +31,7 @@ const SKILLS = [
   },
   {
     label: "Back End",
-    items: ["Python / FastAPI", "Java / Spring Boot", "Node.js", "C# .NET", "REST / GraphQL", "Kafka", "PostgreSQL"],
+    items: ["Python / FastAPI", "C++20", "pybind11", "Java / Spring Boot", "Node.js", "C# .NET", "REST / GraphQL", "Kafka", "PostgreSQL"],
   },
   {
     label: "Cloud & DevOps",
@@ -45,6 +45,8 @@ const EXPERIENCE = [
     title: "Lead AI & Full-Stack Engineer",
     period: "May 2021 – Present",
     bullets: [
+      "Architected a polyglot AI execution framework separating probabilistic LLM orchestration (LangGraph/Python) from deterministic C++20 execution, establishing a reusable enterprise reference architecture.",
+      "Bridged the C++ native engine to a FastAPI backend via pybind11, releasing the Python GIL to enable true parallel execution and establishing a reusable architecture for integrating high-performance native services into enterprise AI applications.",
       "Architected an enterprise RAG pipeline using Azure OpenAI and LangGraph to ingest, triage, and extract 50+ fields from structured note term sheets.",
       "Engineered a Human-in-the-Loop review application using Next.js and AG Grid with confidence scoring, LLM reasoning, and source attribution for end-to-end compliance traceability.",
       "Architected the end-to-end platform using FastAPI, Azure PostgreSQL, and Azure Bicep, enabling repeatable one-command infrastructure provisioning.",
@@ -171,7 +173,7 @@ export default function ResumePage() {
             Matthew Arvidson
           </h1>
           <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.68rem", color: T.text.dim, letterSpacing: "0.04em", marginBottom: 16 }}>
-            Software Engineer · AI Platforms · Financial Systems Modernization · React / TypeScript / Enterprise Architecture
+            Senior Software Engineer · AI Platforms · Financial Systems Modernization · React / TypeScript / Enterprise Architecture
           </p>
           <p style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: "0.7rem", color: T.text.secondary, lineHeight: 2, marginBottom: 24, flexWrap: "wrap" }}>
             Charlotte, NC
