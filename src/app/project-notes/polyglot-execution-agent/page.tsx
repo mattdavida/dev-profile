@@ -491,8 +491,8 @@ export default function PolyglotExecutionAgentPage() {
           />
           <Stat
             label="Market Data"
-            value="58,632"
-            sub="Real Bloomberg ZN ticks"
+            value="50K+"
+            sub="Real L2 order book ticks"
           />
         </motion.div>
 
@@ -657,8 +657,8 @@ export default function PolyglotExecutionAgentPage() {
             />
             <StackRow
               layer="Market Data"
-              tech="Bloomberg ZN ticks"
-              purpose="58,632 rows of real L2 order book data from 2016-12-23. Reconstructed via time-windowed accumulation. Produces non-trivial, real slippage numbers."
+              tech="Real-world tick data"
+              purpose="Real L2 order book data (source under review). Reconstructed via time-windowed accumulation. Produces non-trivial, real slippage numbers."
             />
             <StackRow
               layer="Infrastructure"
@@ -832,11 +832,11 @@ export default function PolyglotExecutionAgentPage() {
               marginBottom: 16,
             }}
           >
-            The LOB is populated from a real Bloomberg tick file for ZN (10-Year
-            Treasury Note Futures, CME Globex) dated 2016-12-23 — 58,632 rows of
-            trade, bid, and ask ticks. A dummy symmetric order book would
-            produce trivially round slippage numbers that look synthetic. Real
-            data produces irregular depth and non-trivial results.
+            The LOB is populated from a real-world institutional tick dataset
+            (source under review) — trade, bid, and ask ticks reconstructed
+            into L2 depth. A dummy symmetric order book would produce trivially
+            round slippage numbers that look synthetic. Real data produces
+            irregular depth and non-trivial results.
           </p>
           <p
             style={{
@@ -845,12 +845,12 @@ export default function PolyglotExecutionAgentPage() {
               color: T.text.body,
             }}
           >
-            ZN 2016-12-23 is a locked market throughout the session (best bid =
-            best ask — a valid real condition in highly liquid CME futures).
-            Slippage of 1.4–2.0 bps on a 50–200 contract order comes from
-            sweeping through multiple depth levels at different prices, not from
-            the spread itself. This is the realistic, non-trivial result that
-            makes the demo credible.
+            The dataset includes a locked-market session (best bid = best ask —
+            a valid real condition in highly liquid futures). Slippage of
+            1.4–2.0 bps on a 50–200 contract order comes from sweeping through
+            multiple depth levels at different prices, not from the spread
+            itself. This is the realistic, non-trivial result that makes the
+            demo credible.
           </p>
         </motion.section>
 

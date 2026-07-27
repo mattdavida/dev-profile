@@ -28,7 +28,7 @@ export const PROJECTS: Project[] = [
   {
     name: "polyglot-execution-agent",
     account: "matthew-arvidson",
-    desc: "Production-inspired trading execution agent — LangGraph orchestrates LLM strategy selection while a C++20 LOB engine (p50 = 0.6 µs, zero heap allocation) computes slippage via pybind11. Synchronous HITL pause with SQLite checkpointing. Real Bloomberg ZN market data.",
+    desc: "Production-inspired trading execution agent — LangGraph orchestrates LLM strategy selection while a C++20 LOB engine (p50 = 0.6 µs, zero heap allocation) computes slippage via pybind11. Synchronous HITL pause with SQLite checkpointing. Real-world L2 order book data.",
     lang: "Python / C++",
     tags: ["AI & Fintech"],
     notes: "/project-notes/polyglot-execution-agent",
