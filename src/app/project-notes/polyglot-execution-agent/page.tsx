@@ -849,8 +849,7 @@ export default function PolyglotExecutionAgentPage() {
             a valid real condition in highly liquid futures). Slippage of
             1.4–2.0 bps on a 50–200 contract order comes from sweeping through
             multiple depth levels at different prices, not from the spread
-            itself. This is the realistic, non-trivial result that makes the
-            demo credible.
+            itself.
           </p>
         </motion.section>
 
@@ -930,8 +929,8 @@ export default function PolyglotExecutionAgentPage() {
             }}
           >
             Phase 6 is scoped and ready. The core architecture is complete —
-            these are additive improvements that make the system more compelling
-            as a live demo.
+            these are additive improvements that make the system more
+            compelling.
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
             <DecisionRow
