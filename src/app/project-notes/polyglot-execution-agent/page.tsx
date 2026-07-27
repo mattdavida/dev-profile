@@ -822,7 +822,7 @@ export default function PolyglotExecutionAgentPage() {
               marginTop: 32,
             }}
           >
-            3. Real Market Data
+            3. Realistic Market Data
           </h3>
           <p
             style={{
@@ -833,10 +833,10 @@ export default function PolyglotExecutionAgentPage() {
             }}
           >
             The LOB is populated from a real-world institutional tick dataset
-            (source under review) — trade, bid, and ask ticks reconstructed
-            into L2 depth. A dummy symmetric order book would produce trivially
-            round slippage numbers that look synthetic. Real data produces
-            irregular depth and non-trivial results.
+            (source under review) — trade, bid, and ask ticks reconstructed into
+            L2 depth. A dummy symmetric order book would produce trivially round
+            slippage numbers that look synthetic. Real data produces irregular
+            depth and non-trivial results.
           </p>
           <p
             style={{
