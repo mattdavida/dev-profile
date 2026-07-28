@@ -665,7 +665,7 @@ export default function PolyglotExecutionAgentPage() {
             <StackRow
               layer="Market Data"
               tech="Real-world tick data"
-              purpose="Real L2 order book data (source under review). Reconstructed via time-windowed accumulation. Produces non-trivial, real slippage numbers."
+              purpose="Real L2 order book data. Reconstructed via time-windowed accumulation. Produces non-trivial, real slippage numbers."
             />
             <StackRow
               layer="Infrastructure"
@@ -848,7 +848,7 @@ export default function PolyglotExecutionAgentPage() {
             }}
           >
             The LOB is populated from a real-world institutional tick dataset
-            (source under review) — trade, bid, and ask ticks reconstructed into
+            — trade, bid, and ask ticks reconstructed into
             L2 depth. A dummy symmetric order book would produce trivially round
             slippage numbers that look synthetic. Real data produces irregular
             depth and non-trivial results.
