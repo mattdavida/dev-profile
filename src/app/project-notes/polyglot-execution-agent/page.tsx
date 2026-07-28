@@ -480,10 +480,15 @@ export default function PolyglotExecutionAgentPage() {
         >
           <Stat
             label="C++ LOB Latency"
-            value="0.6 µs"
+            value="0.7 µs"
             sub="p50 · 100k iterations"
           />
           <Stat label="Heap Allocations" value="0" sub="On the C++ hot path" />
+          <Stat
+            label="Engine Tests"
+            value="21"
+            sub="Hand-verified sweep math"
+          />
           <Stat
             label="Phases Complete"
             value="6 / 7"
@@ -564,22 +569,24 @@ export default function PolyglotExecutionAgentPage() {
               marginBottom: 24,
             }}
           >
-            A trader submits a natural language request — &ldquo;Liquidate
-            50,000 ZN contracts by EOD — factory delay news.&rdquo; The system
-            routes that through a four-node LangGraph pipeline, pauses
+            A trader submits a trade request with an explicit direction —
+            &ldquo;Sell 200 ZN by EOD — factory delay news.&rdquo; Side is a
+            form field, never inferred from the free text: a liquidation is a
+            sell, and it sweeps the bid side of the book. The system routes the
+            request through a four-node LangGraph pipeline, pauses
             mid-execution for human review, and only dispatches on explicit
             approval.
           </p>
 
-          <CodeBlock>{`Trader submits trade request
+          <CodeBlock>{`Trader submits trade request    explicit side: buy or sell
         ↓
-  strategy_node   LLM decides: VWAP / TWAP / Sweep / Iceberg
-        ↓         ~4–8 seconds
+  strategy_node   LLM decides: VWAP / TWAP / Sweep / Iceberg + slice count
+        ↓         ~4–8 s. Slice SIZE is ceil division in Python — never the LLM
   simulation_node C++ LOB engine sweeps real ZN order book
-        ↓         p50 = 0.6 µs
+        ↓         sell sweeps bids, buy sweeps asks — p50 ≈ 0.7 µs
   hitl_node       interrupt() — graph checkpoints to SQLite, API returns
         ↓
-  Trader reviews  LLM strategy + C++ metrics side by side
+  Trader reviews  LLM strategy + C++ metrics (incl. fill ratio) side by side
         ↓
   ┌─────────────┬─────────────────┬──────────────┐
   │   APPROVE   │     MODIFY      │    ABORT     │
@@ -638,7 +645,7 @@ export default function PolyglotExecutionAgentPage() {
             <StackRow
               layer="Compute Core"
               tech="C++20 + pybind11"
-              purpose="Pre-allocated limit order book. Zero heap allocation on the hot path. GIL released for native thread execution. p50 = 0.6 µs across 100k iterations."
+              purpose="Pre-allocated limit order book, side-aware sweep (sells hit bids, buys lift asks). Zero heap allocation on the hot path. GIL released for native thread execution. p50 ≈ 0.7 µs across 100k iterations."
             />
             <StackRow
               layer="API Layer"
@@ -691,10 +698,13 @@ export default function PolyglotExecutionAgentPage() {
               marginBottom: 16,
             }}
           >
-            The order book engine is the architectural centrepiece. Every design
-            constraint is deliberate — this is what a production-grade HFT-style
-            LOB engine looks like at the boundary with a Python orchestration
-            layer.
+            The order book engine is a deliberate stand-in for the execution
+            analytics a trading firm already runs in production — the realistic
+            engagement is to integrate that native code, not rewrite it. The
+            engine here exists to make the boundary real: it follows genuine
+            low-latency conventions so the integration pattern is demonstrated
+            against production-shaped constraints, and its math is small enough
+            to hand-verify — which the test suite does.
           </p>
           <div
             style={{
@@ -726,26 +736,31 @@ export default function PolyglotExecutionAgentPage() {
             />
           </div>
 
-          <CodeBlock>{`// The sweep loop — zero allocation, intrusive list traversal
+          <CodeBlock>{`// The sweep loop — zero allocation, intrusive list traversal.
+// Side::Sell (a liquidation) walks the bids; Side::Buy walks the asks.
 [[nodiscard]] SimulationResult ExecutionSimulator::simulate(
-    int order_size) noexcept {
+    int order_size, Side side) const noexcept {
 
-    auto start = std::chrono::high_resolution_clock::now();
+    const bool is_buy = (side == Side::Buy);
+    const int  head   = is_buy ? book_.ask_head : book_.bid_head;
 
-    int remaining = order_size;
-    double total_cost = 0.0;
+    int    remaining    = order_size;
+    double notional     = 0.0;
     int    total_filled = 0;
 
-    int idx = book_.ask_head_idx;
+    int idx = head;
     while (idx != SENTINEL && remaining > 0) {
-        auto& level = book_.asks[idx];
-        int fill = std::min(remaining, level.available_shares);
-        total_cost   += fill * level.price;
+        const auto& level = view[idx];
+        const int fill = std::min(remaining, level.available);
+        notional     += fill * level.price;
         total_filled += fill;
         remaining    -= fill;
         idx = level.next_idx;   // intrusive traversal — no pointer chase
     }
-    // ... slippage math, latency capture
+    // total_filled < order_size = partial fill, reported to the caller.
+    // Costs are returned in the book's raw price units — the Python
+    // boundary converts to USD via instrument tick metadata.
+    // ... adverse slippage math, latency capture
 }`}</CodeBlock>
 
           <h3
@@ -853,6 +868,63 @@ export default function PolyglotExecutionAgentPage() {
           </p>
         </motion.section>
 
+        {/* ── The Hardening Pass ── */}
+        <motion.section {...fadeUp(0.05)} style={{ marginBottom: 60 }}>
+          <SectionHeader>The Hardening Pass</SectionHeader>
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+              marginBottom: 20,
+            }}
+          >
+            Before showing this to a technical reviewer, I reviewed it the way
+            a hostile domain expert would — and found that the first working
+            version had the classic failure mode of AI-era demos: the
+            architecture was right, but the finance at the boundary was wrong.
+            Four bugs, none of them C++ bugs — all of them{" "}
+            <em style={{ color: T.text.secondary }}>
+              integration contract bugs
+            </em>
+            , which is exactly the layer this project claims to demonstrate.
+          </p>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 0,
+              marginBottom: 24,
+            }}
+          >
+            <DecisionRow
+              decision="The sell order was buying"
+              outcome="The headline demo was a liquidation — a sell — but the engine only swept the ask side, which is a market buy. Fixed with a Side enum flowing from an explicit form field through the API and state into C++: sells sweep bids, buys lift asks. Direction is never inferred from free text."
+            />
+            <DecisionRow
+              decision="The dollars weren't dollars"
+              outcome="The engine computed costs in the book's raw price units (CME ticks) but returned them in a field named total_cost_usd — and the UI printed them with a $ sign. Now the C++ core is instrument-agnostic and returns price units; the Python boundary owns the conversion via tick metadata. The units contract is part of the architecture, and it is tested."
+            />
+            <DecisionRow
+              decision="Partial fills were silent"
+              outcome="If the book exhausted before a slice completed, the metrics quietly reflected whatever filled. The engine now reports total_filled, the state carries a fill ratio, and the HITL panel warns the trader in red. First end-to-end run after the fix: the LLM proposed a single 200-lot sweep and the panel correctly flagged that only 141 contracts (70.5%) would fill."
+            />
+            <DecisionRow
+              decision="The LLM was doing arithmetic"
+              outcome="The LLM originally output shares_per_slice — which meant it was doing the division, contradicting the system's core claim. Now it outputs only the algorithm and a Pydantic-bounded slice count; slice size is deterministic ceil division in Python. 'The LLM never computes a number' is enforced by schema, not by prompt."
+            />
+          </div>
+          <Callout>
+            The fix list barely touched the C++. The lesson generalizes: when
+            you wrap AI around an existing native system, the risk
+            concentrates at the seam — direction, units, partial results.
+            Getting the semantics right there is the actual integration skill,
+            so the hardening pass ended with a 21-test suite pinning the sweep
+            math (buy, sell, partial, hand-computed expectations), the slicing,
+            and the unit conversion.
+          </Callout>
+        </motion.section>
+
         {/* ── Engineering Takeaways ── */}
         <motion.section {...fadeUp(0.05)} style={{ marginBottom: 60 }}>
           <SectionHeader>Engineering Takeaways</SectionHeader>
@@ -865,7 +937,12 @@ export default function PolyglotExecutionAgentPage() {
               {
                 heading:
                   "Architectural boundaries are safer than prompt engineering.",
-                body: "The LLM in this system cannot compute slippage — not because it is told not to, but because the computation runs in a different language on a different runtime with no shared state. The constraint is structural. A future model update or a jailbreak attempt cannot override it.",
+                body: "The LLM in this system cannot compute slippage, slice sizes, or costs — not because it is told not to, but because every number is produced in code: slice sizing by deterministic Python arithmetic with Pydantic-enforced bounds, execution metrics by a C++ engine on a different runtime with no shared state. The constraint is structural. A future model update or a jailbreak attempt cannot override it.",
+              },
+              {
+                heading:
+                  "The boundary's units contract is part of the architecture.",
+                body: "The native engine returns costs in the instrument's raw price units; the orchestration layer owns the conversion to currency via tick metadata. Getting the semantics right at the seam — direction, units, partial fills — is the actual integration skill, and it is covered by tests.",
               },
               {
                 heading:
