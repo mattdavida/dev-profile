@@ -27,12 +27,38 @@ export const PROJECTS: Project[] = [
   // ── AI & Fintech ─────────────────────────────────────────────────────────
   {
     name: "polyglot-execution-agent",
-    account: "matthew-arvidson",
+    account: "mattdavida",
     desc: "Production-inspired trading execution agent — LangGraph orchestrates LLM strategy selection while a C++20 LOB engine (p50 = 0.6 µs, zero heap allocation) computes slippage via pybind11. Synchronous HITL pause with SQLite checkpointing. Real-world L2 order book data.",
     lang: "Python / C++",
     tags: ["AI & Fintech"],
     notes: "/project-notes/polyglot-execution-agent",
   },
+  {
+    name: "real-time-market-intelligence-pipeline",
+    account: "mattdavida",
+    desc: "Treasury futures ticks stream from CSV through Kafka into kdb+/q for analytics, then push live to an Angular desk UI over SSE.",
+    lang: "Java",
+    tags: ["AI & Fintech"],
+  },
+  {
+    name: "grounded-ai-reference-architecture",
+    account: "mattdavida",
+    desc: "Reference implementation for integrating chat/voice into operational software without letting the LLM touch raw data.",
+    lang: "TypeScript",
+    tags: ["AI & Fintech"],
+  },
+
+  // ── Featured framework — first UI shell for UE4SS mods ───────────────────
+  // High on All; first under Game Modding filter.
+  {
+    name: "ue4ss-ModMenu",
+    account: "mattdavida",
+    desc: "Lightweight UI framework for UE4SS Lua mods — feature modules register reusable in-game settings panels without each mod reimplementing its own ImGui or UMG shell. First UI framework in this modding stack.",
+    lang: "Lua",
+    tags: ["Game Modding", "Tools"],
+    notes: "/project-notes/ue4ss-modmenu",
+  },
+
   {
     name: "structured-notes-intelligence-engine",
     account: "matthew-arvidson",
@@ -83,7 +109,7 @@ export const PROJECTS: Project[] = [
     tags: ["AI & Fintech"],
   },
 
-  // ── Game Modding — starred / high-impact first ───────────────────────────
+  // ── Game Modding — starred / high-impact ─────────────────────────────────
   {
     name: "MGS-Delta-UE4SS-Fix",
     account: "mattdavida",
@@ -105,6 +131,20 @@ export const PROJECTS: Project[] = [
     lang: "C#",
     tags: ["Game Modding"],
   },
+  {
+    name: "BOR-DevToolsMasterMod",
+    account: "mattdavida",
+    desc: "In-game Dev Tools cheat panel for Beast of Reincarnation (Steam PC). Press F6 to open or close. Host mod built on top of ue4ss-ModMenu.",
+    lang: "Lua",
+    tags: ["Game Modding"],
+  },
+  {
+    name: "BeastOfReincarnationMod",
+    account: "mattdavida",
+    desc: "Lightweight UE4SS C++ mod for Beast of Reincarnation — ImGui GUI to give items, amber, and skill/ability points.",
+    lang: "C++",
+    tags: ["Game Modding"],
+  },
 
   // ── Game Modding — infrastructure & tooling ──────────────────────────────
   {
@@ -124,7 +164,7 @@ export const PROJECTS: Project[] = [
   {
     name: "Cpp_Mods",
     account: "mattdavida",
-    desc: "UE4SS mods written in C++ — lower-level engine hooks beyond what Lua scripting alone can access.",
+    desc: "UE4SS C++ mod workspace for Unreal Engine games — lower-level engine hooks beyond what Lua scripting alone can access.",
     lang: "C++",
     tags: ["Game Modding", "Tools"],
   },
@@ -137,6 +177,41 @@ export const PROJECTS: Project[] = [
   },
 
   // ── Game Modding — individual game mods ──────────────────────────────────
+  {
+    name: "LunariumMod",
+    account: "mattdavida",
+    desc: "Quality-of-life MelonLoader mod for Lunarium with an in-game overlay.",
+    lang: "C#",
+    tags: ["Game Modding"],
+  },
+  {
+    name: "StoneMachiaCheatMod",
+    account: "mattdavida",
+    desc: "In-game cheat menu for Stonemachia — queen transformation, persistent god mode, auto-parry, level setting, extra jumps, and rat minion spawning.",
+    lang: "Lua",
+    tags: ["Game Modding"],
+  },
+  {
+    name: "SephiriaMod",
+    account: "mattdavida",
+    desc: "In-game cheat and utility mod for Sephiria.",
+    lang: "C#",
+    tags: ["Game Modding"],
+  },
+  {
+    name: "pathogenic-hotkey-cheats",
+    account: "mattdavida",
+    desc: "Full-featured cheat mod for Pathogenic — hotkey healing, stat buffs, forced organelle rarity, attack range scaling, and brain secret boss unlock. Configurable via JSON.",
+    lang: "GDScript",
+    tags: ["Game Modding"],
+  },
+  {
+    name: "Rubinite-Mod",
+    account: "mattdavida",
+    desc: "Quality-of-life mod for Rubinite — in-game overlay with combat boosts and a shortcut to skip Monastery night missions between bosses.",
+    lang: "C#",
+    tags: ["Game Modding"],
+  },
   {
     name: "Code-Vein-2-Cheat-Traversal-Mod",
     account: "mattdavida",
@@ -268,7 +343,9 @@ export const LANG_COLORS: Record<string, string> = {
   Lua:             "#ca8a04",
   Java:            "#ef4444",
   JavaScript:      "#f59e0b",
+  GDScript:        "#478cbf",
   "HTML / Python": "#10b981",
+  "Python / C++":  "#3b82f6",
   Data:            "#64748b",
 };
 

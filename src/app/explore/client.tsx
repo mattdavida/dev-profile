@@ -240,6 +240,7 @@ export default function ExploreClient({ projects }: { projects: Project[] }) {
   }, [projects]);
 
   const totalStars = useMemo(() => projects.reduce((acc, p) => acc + (p.stars ?? 0), 0), [projects]);
+  const langCount = useMemo(() => new Set(projects.map((p) => p.lang)).size, [projects]);
 
   return (
     <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} style={{ minHeight: "100vh", background: T.bg.page }}>
@@ -272,7 +273,7 @@ export default function ExploreClient({ projects }: { projects: Project[] }) {
               >
                 <span style={{ color: T.accent }}>›</span>
                 <Typewriter
-                  text={`${projects.length} repos  ·  7 languages  ·  ${totalStars}+ stars  ·  live from GitHub`}
+                  text={`${projects.length} repos  ·  ${langCount} languages  ·  ${totalStars}+ stars  ·  live from GitHub`}
                   delay={100} speed={16} hideCursorWhenDone
                   style={{ color: T.text.ghost }}
                 />
