@@ -34,6 +34,14 @@ export const PROJECTS: Project[] = [
     notes: "/project-notes/polyglot-execution-agent",
   },
   {
+    name: "intelligent-trade-exception-triage-engine",
+    account: "mattdavida",
+    desc: "Human-in-the-loop middle-office exception triage — Java owns lifecycle + auditable confidence; Python/LangGraph proposes severity only; Angular desk Approves, Rejects, or Overrides. Kafka ingest commits before any Azure call.",
+    lang: "Java / Python / TypeScript",
+    tags: ["AI & Fintech"],
+    notes: "/project-notes/intelligent-trade-exception-triage-engine",
+  },
+  {
     name: "real-time-market-intelligence-pipeline",
     account: "mattdavida",
     desc: "Treasury futures ticks stream from CSV through Kafka into kdb+/q for analytics, then push live to an Angular desk UI over SSE.",
