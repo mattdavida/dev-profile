@@ -342,11 +342,23 @@ export default function Ue4ssModMenuPage() {
               color: T.text.primary,
               letterSpacing: "-0.025em",
               lineHeight: 1.08,
-              marginBottom: 16,
+              marginBottom: 12,
             }}
           >
             ModMenu
           </h1>
+          <p
+            style={{
+              fontFamily: "var(--font-geist-mono), monospace",
+              fontSize: "0.68rem",
+              letterSpacing: "0.2em",
+              color: T.text.dim,
+              marginBottom: 16,
+              textTransform: "uppercase",
+            }}
+          >
+            v1.1.2 · UE4SS Lua UI framework
+          </p>
           <p
             style={{
               fontSize: "1.05rem",
@@ -359,7 +371,8 @@ export default function Ue4ssModMenuPage() {
             A game-agnostic UI framework for Unreal Engine 4/5 mods — injected
             entirely via Lua, with no Blueprints, no Unreal Editor, and UObject
             roots that don&apos;t collide when independent mod authors each ship
-            their own shell.
+            their own shell. Shipping in five Nexus titles plus a
+            game-agnostic DevTools host.
           </p>
 
           <div
@@ -377,6 +390,7 @@ export default function Ue4ssModMenuPage() {
               "Widget Registry",
               "Multi-mod",
               "ModRef",
+              "number · textinput · row",
             ].map((tag) => (
               <span
                 key={tag}
@@ -422,7 +436,7 @@ export default function Ue4ssModMenuPage() {
               GitHub ↗
             </a>
             <a
-              href="https://github.com/mattdavida/BOR-DevToolsMasterMod"
+              href="https://github.com/mattdavida/ue4ss-DevToolsMod"
               target="_blank"
               rel="noreferrer"
               style={{
@@ -444,7 +458,32 @@ export default function Ue4ssModMenuPage() {
                 e.currentTarget.style.color = T.text.dim;
               }}
             >
-              Host example ↗
+              DevTools host ↗
+            </a>
+            <a
+              href="https://www.nexusmods.com/profile/DevToolsMaster/mods"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: "0.68rem",
+                letterSpacing: "0.12em",
+                color: T.text.dim,
+                border: `1px solid ${T.border.mid}`,
+                padding: "8px 20px",
+                textDecoration: "none",
+                transition: "border-color 0.2s, color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = T.accent;
+                e.currentTarget.style.color = T.accent;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = T.border.mid;
+                e.currentTarget.style.color = T.text.dim;
+              }}
+            >
+              Nexus profile ↗
             </a>
           </div>
         </motion.div>
@@ -487,11 +526,114 @@ export default function Ue4ssModMenuPage() {
             marginBottom: 72,
           }}
         >
-          <Stat label="Widget types" value="5" sub="checkbox · button · dropdown · label · separator" />
-          <Stat label="Injection" value="Lua" sub="No Blueprints · no editor assets" />
-          <Stat label="Shells" value="N" sub="One Init per enabled host mod" />
-          <Stat label="Engines" value="UE4/5" sub="Arity fallback on SetInputMode" />
+          <Stat label="Version" value="1.1.2" sub="number · textinput · row · busy buttons" />
+          <Stat label="Widget types" value="8" sub="checkbox · button · dropdown · label · separator · number · textinput · row" />
+          <Stat label="Titles" value="5" sub="Nexus hosts + game-agnostic DevTools" />
+          <Stat label="Engines" value="UE4/5" sub="Arity fallback · opt-in ignoreLook" />
         </motion.div>
+
+        {/* ── In the wild ── */}
+        <motion.section {...fadeUp(0.05)} style={{ marginBottom: 60 }}>
+          <SectionHeader>In the Wild</SectionHeader>
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+              marginBottom: 24,
+            }}
+          >
+            Same{" "}
+            <code style={{ color: T.accent, fontSize: "0.82rem" }}>
+              require(&quot;ModMenu.ModMenu&quot;)
+            </code>{" "}
+            shell across five published game mods and a starter kit that works
+            on any UE4SS title — each host owns its{" "}
+            <code style={{ color: T.accent, fontSize: "0.82rem" }}>Init</code>{" "}
+            /{" "}
+            <code style={{ color: T.accent, fontSize: "0.82rem" }}>
+              instanceId
+            </code>
+            ; ModMenu owns chrome, input, and widgets.
+          </p>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 0,
+              marginBottom: 8,
+            }}
+          >
+            {[
+              {
+                game: "Witchfire",
+                href: "https://www.nexusmods.com/witchfire/mods/14",
+                note: "Nexus host mod",
+              },
+              {
+                game: "Stone Machia",
+                href: "https://www.nexusmods.com/stonemachia/mods/11",
+                note: "Nexus host mod",
+              },
+              {
+                game: "Beast of Reincarnation",
+                href: "https://www.nexusmods.com/beastofreincarnation/mods/69",
+                note: "Nexus host · hero shot above",
+              },
+              {
+                game: "Asterigos: Curse of the Stars",
+                href: "https://www.nexusmods.com/asterigoscurseofthestars/mods/19",
+                note: "Nexus host mod",
+              },
+              {
+                game: "Thymesia",
+                href: "https://www.nexusmods.com/thymesia/mods/28",
+                note: "Nexus host mod",
+              },
+              {
+                game: "DevTools (game-agnostic)",
+                href: "https://github.com/mattdavida/ue4ss-DevToolsMod",
+                note: "UE4SS starter kit — class / instance / function discovery",
+              },
+            ].map((row) => (
+              <div
+                key={row.href}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "minmax(160px, 240px) 1fr",
+                  gap: "8px 20px",
+                  padding: "12px 0",
+                  borderBottom: `1px solid ${T.border.subtle}`,
+                  alignItems: "baseline",
+                }}
+              >
+                <a
+                  href={row.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    fontFamily: "var(--font-geist-mono), monospace",
+                    fontSize: "0.72rem",
+                    color: T.accent,
+                    textDecoration: "none",
+                    letterSpacing: "0.02em",
+                  }}
+                >
+                  {row.game} ↗
+                </a>
+                <span
+                  style={{
+                    fontSize: "0.78rem",
+                    color: T.text.body,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {row.note}
+                </span>
+              </div>
+            ))}
+          </div>
+        </motion.section>
 
         {/* ── The Problem ── */}
         <motion.section {...fadeUp(0.05)} style={{ marginBottom: 60 }}>
@@ -561,7 +703,7 @@ export default function Ue4ssModMenuPage() {
                 layer: "Host",
                 tech: "Init once",
                 purpose:
-                  "Title, hotkey, dock side, instanceId — owns the shell for that enabled Lua mod.",
+                  "Title, hotkey, dock side, instanceId — plus canOpen / ignoreLook when the host needs them.",
               },
               {
                 layer: "Feature",
@@ -585,9 +727,10 @@ export default function Ue4ssModMenuPage() {
 ModMenu.Init({
     title = "Dev Tools",
     instanceId = "DevTools",
-    key = Key.F6,
-    keyHint = "F6",
-    dock = "left",
+    key = Key.F7,
+    keyHint = "F7",
+    dock = "right",
+    ignoreLook = true, -- opt-in camera lock for mouse-look games
 })
 
 ModMenu.Register({
@@ -596,8 +739,14 @@ ModMenu.Register({
     items = {
         { type = "dropdown", id = "item", label = "Item",
           searchable = true, maxVisible = 400, options = itemDb },
-        { type = "button", id = "give", label = "Give item",
-          onClick = function() GiveSelected() end },
+        { type = "row", items = {
+            { type = "number", id = "count", label = "Count",
+              default = 1, min = 1, integer = true },
+            { type = "button", id = "give", label = "Give item",
+              onClick = function() GiveSelected() end },
+        }},
+        { type = "textinput", id = "filter", label = "Filter",
+          placeholder = "Name contains...", debounceMs = 250 },
     },
 })`}</CodeBlock>
 
@@ -660,11 +809,17 @@ ModMenu.Register({
             }}
           >
             The shell never hard-codes control UMG. Feature mods request a
-            &ldquo;dropdown&rdquo;; the registry constructs a{" "}
+            &ldquo;dropdown&rdquo; or &ldquo;number&rdquo;; the registry
+            constructs the right UMG on the fly. As of 1.1.x that means eight
+            types — including{" "}
+            <code style={{ color: T.accent, fontSize: "0.82rem" }}>number</code>
+            ,{" "}
             <code style={{ color: T.accent, fontSize: "0.82rem" }}>
-              UComboBoxString
-            </code>{" "}
-            or a searchable scroll list on the fly. New types implement a
+              textinput
+            </code>
+            , and horizontal{" "}
+            <code style={{ color: T.accent, fontSize: "0.82rem" }}>row</code>{" "}
+            groups for select → count → submit flows. New types implement a
             contract —{" "}
             <em style={{ color: T.text.secondary }}>
               validate, seed, build, poll, apply
@@ -673,7 +828,15 @@ ModMenu.Register({
             <code style={{ color: T.accent, fontSize: "0.82rem" }}>
               widgets/init.lua
             </code>
-            .
+            . Busy buttons use{" "}
+            <code style={{ color: T.accent, fontSize: "0.82rem" }}>
+              SetButtonLabel
+            </code>{" "}
+            /{" "}
+            <code style={{ color: T.accent, fontSize: "0.82rem" }}>
+              SetButtonEnabled
+            </code>{" "}
+            without rebuilding the section.
           </p>
         </motion.section>
 
@@ -719,7 +882,28 @@ ModMenu.Register({
               ModMenu.OpenCount
             </code>{" "}
             across the shared environment and only restores GameOnly when the
-            last shell closes.
+            last shell closes — and only if the game had no cursor when that
+            shell opened, so hub / inventory cursors stay intact.
+          </p>
+          <p
+            style={{
+              fontSize: "0.88rem",
+              lineHeight: 1.85,
+              color: T.text.body,
+              marginBottom: 16,
+            }}
+          >
+            Camera look is{" "}
+            <em style={{ color: T.text.secondary }}>opt-in</em> via{" "}
+            <code style={{ color: T.accent, fontSize: "0.82rem" }}>
+              {"Init({ ignoreLook = true })"}
+            </code>
+            : mouse-look titles that need a locked camera pass it; others keep
+            default look input. Hosts can also gate open with{" "}
+            <code style={{ color: T.accent, fontSize: "0.82rem" }}>
+              canOpen
+            </code>{" "}
+            (close is never gated).
           </p>
           <p
             style={{
@@ -851,8 +1035,8 @@ ModMenu.Register({
             />
             <StackRow
               layer="Reference host"
-              tech="BOR DevTools"
-              purpose="Multi-section cheat panel on Beast of Reincarnation — the left panel in the hero shot."
+              tech="DevTools"
+              purpose="Game-agnostic UE4SS discovery panel (F7) — plus five Nexus cheat hosts that ship the same shared ModMenu.lua."
             />
           </div>
         </motion.section>
@@ -945,9 +1129,16 @@ ModMenu.Register({
             >
               Silksong-inspired
             </a>{" "}
-            settings shell — still constructed UMG, still game-agnostic. Theme
-            tokens, collapsible sections, and tabs are scoped; they are not
-            shipped yet.
+            settings shell — still constructed UMG, still game-agnostic.{" "}
+            <code style={{ color: T.accent, fontSize: "0.82rem" }}>number</code>
+            /{" "}
+            <code style={{ color: T.accent, fontSize: "0.82rem" }}>
+              textinput
+            </code>
+            /{" "}
+            <code style={{ color: T.accent, fontSize: "0.82rem" }}>row</code>{" "}
+            shipped in 1.1.x; theme tokens, collapsible sections, and tabs are
+            scoped next.
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
             <DecisionRow
@@ -1036,7 +1227,7 @@ ModMenu.Register({
               View on GitHub ↗
             </a>
             <a
-              href="https://github.com/mattdavida/BOR-DevToolsMasterMod"
+              href="https://github.com/mattdavida/ue4ss-DevToolsMod"
               target="_blank"
               rel="noreferrer"
               style={{
@@ -1058,7 +1249,7 @@ ModMenu.Register({
                 e.currentTarget.style.color = T.text.dim;
               }}
             >
-              BOR DevTools host ↗
+              DevTools Mod ↗
             </a>
           </div>
         </motion.div>

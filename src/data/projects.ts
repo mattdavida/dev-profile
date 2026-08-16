@@ -53,7 +53,7 @@ export const PROJECTS: Project[] = [
   {
     name: "ue4ss-ModMenu",
     account: "mattdavida",
-    desc: "Lightweight UI framework for UE4SS Lua mods — feature modules register reusable in-game settings panels without each mod reimplementing its own ImGui or UMG shell. First UI framework in this modding stack.",
+    desc: "Lightweight UI framework for UE4SS Lua mods — feature modules register reusable in-game settings panels without each mod reimplementing its own ImGui or UMG shell. Used across five Nexus titles plus a game-agnostic DevTools host.",
     lang: "Lua",
     tags: ["Game Modding", "Tools"],
     notes: "/project-notes/ue4ss-modmenu",
